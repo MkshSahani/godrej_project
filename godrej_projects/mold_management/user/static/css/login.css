@@ -1,0 +1,42 @@
+button.signupButton {
+    border : 2px solid rgb(228, 200, 78);
+}
+
+button.signupButton:hover {
+    background-color: rgb(228, 200, 78);
+}
+
+nav.login_navbar {
+    height : 100px;
+    border-bottom: 5px solid rgb(228, 200, 78);
+}
+
+div.bodyContent {
+    height: 200px;
+    margin-top : 150px; 
+    margin-left : 600px;
+    border-radius: 10px;
+    height : 600px; 
+    width : 650px;
+    border: 1px solid black;
+    box-shadow: 2px 4px;
+    /* background-color: rgb(231, 223, 223);    */
+}
+
+div.bodyContent div.formBody {
+    width : 400px;
+    margin-left : 150px;
+    margin-top : 130px;
+}
+
+
+div.bodyContent button.submitButton {
+    border : 2px solid rgb(228, 200, 78);
+    background-color: white;
+    color : black;
+    
+}
+
+div.bodyContent button.submitButton:hover {
+    background-color: rgb(228, 200, 78);
+}
