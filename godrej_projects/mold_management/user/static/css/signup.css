@@ -12,11 +12,10 @@ nav.login_navbar {
 }
 
 div.bodyContent {
-    height: 200px;
-    margin-top : 150px; 
+    margin-top : 50px; 
     margin-left : 600px;
     border-radius: 10px;
-    height : 600px; 
+    height : 800px; 
     width : 650px;
     border: 1px solid black;
     box-shadow: 2px 4px;
@@ -47,4 +46,9 @@ div.bodyContent div.formBody form input.form-control:focus {
 div.bodyContent img.LoginLogo {
     margin-left : 200px;
     margin-top: 50px;
+}
+
+div.bodyContent div.formBody form  button.customSubmitButton {
+    width : 400px;
+    margin-top : 10px;
 }
