@@ -18,22 +18,28 @@
   </div>
 </nav>
 
+{% if userCreditError %}
+  <div class="alert alert-danger" role="alert">
+    You Have entered Wrong Credential.
+  </div>
+{% endif %}
+
 <div class="bodyContent"> 
   <img class="LoginLogo" src="{% static 'images/panPlast.png' %}" />
     <div class="formBody"> 
     {% comment %} Login Form {% endcomment %}
       
-    <form>
+    <form method = "POST" autocomplete="off" action="." >
     {% csrf_token %}
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label"><b>Email address</b></label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="email" name="userEmail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required >
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label"><b>Password</b></label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
+    <input type="password" name="userPassword" class="form-control" id="exampleInputPassword1" required >
   </div>
-        <a class="" href = "{% url 'userSignup' %}">
+        <a class="" href = "{% url 'userLogin' %}">
         <button type="submit" class="btn btn-primary submitButton"><b>Log in</b></button>
         </a> 
     </form>

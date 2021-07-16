@@ -6,4 +6,8 @@
 
 {% block body_content %}
     User Profile.
+    {{ user.username }}
+    <a href="{% url 'userLogout' %}"> 
+        logout, 
+    </a> 
 {% endblock %}

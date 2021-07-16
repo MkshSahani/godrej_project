@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}
     <title> 
-        DashBoard
+        DashBoard | {{ user.first_name }}
     </title> 
 {% endblock %}
 
 {% block body_content %}
-    UserDashBoard.
+    
+    <p>
+    {{ user.username }}
+    {{ user.last_login }}
+    </p> 
+    <a href="{% url 'userLogout' %}"> 
+        logout
+    </a> 
+
+
+
+
+
 {% endblock %}
 

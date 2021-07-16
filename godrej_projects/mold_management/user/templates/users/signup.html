@@ -22,6 +22,14 @@
   </div>
 </nav>
 
+
+{% if userExist %}
+    <div class="alert alert-danger" role="alert">
+        Some other user using same Email address, place user othe Email.
+    </div>
+{% endif %}
+
+
 <div 
   class="bodyContent"> 
   <img 
@@ -174,7 +182,7 @@
                 id="inputGroupSelect01"
                 name="userLevel">
                 
-                <option selected value="0">Select</option>
+                <option selected value="-1">Select</option>
                 <option value="0">Worker</option>
                 <option value="1">Supervisor</option>
                 <option value="2">Manager</option>
