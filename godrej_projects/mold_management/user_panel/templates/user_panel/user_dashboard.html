@@ -79,6 +79,41 @@
 
             <div class="col"> 
                 {% comment %} Tables about data regarding Mould {% endcomment %}
+                <table> 
+                    <tr> 
+                        <td> 
+                            Mould ID 
+                        </td> 
+
+                        <td> 
+                            Mould Name 
+                        </td>
+
+                        <td> 
+                            Alert 
+                        </td> 
+                    </tr> 
+                    {% for mould in mould_data %}
+
+                        <tr> 
+                            <td> 
+                                <a href="mould/{{ mould.mould_id }}">
+                                    {{ mould.mould_id }}
+                                </a> 
+                            </td> 
+
+                           <td> 
+                                {{ mould.mould_name }}
+                            </td> 
+
+                            <td> 
+                                {{ mould.alert }}
+                            </td>
+                        </tr> 
+
+                    {% endfor %}
+
+                </table> 
 
             </div> 
 

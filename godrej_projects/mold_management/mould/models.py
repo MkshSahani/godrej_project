@@ -24,8 +24,8 @@ class Mould(models.Model):
 
 class MouldStatus(models.Model): 
 
-    mould_id = models.ForeignKey(Mould, related_name='mould_status', on_delete=models.PROTECT, primary_key=True)
-    status_update = models.DateTimeField(auto_now_add=True, primary_key=True)
+    mould_id = models.ForeignKey(Mould, related_name='mould_status', on_delete=models.PROTECT)
+    status_update = models.DateTimeField(auto_now_add=True)
     count_increment = models.IntegerField() # daily increment. 
 
     def __str__(self): 
