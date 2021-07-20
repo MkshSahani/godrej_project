@@ -33,6 +33,7 @@ LOGIN_URL = 'user/login/'
 INSTALLED_APPS = [
     'user', # add user application. 
     'user_panel', # add user_panel application.
+    'mould', # register mould application in system. 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

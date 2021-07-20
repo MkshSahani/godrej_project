@@ -24,7 +24,7 @@ def user_login(request):
         # if user is authenticated login user and redirect user to user DashBoard. 
         if user_employee is not None: 
             login(request, user_employee)
-            return redirect('')
+            return redirect('/')
         else: 
             # if user is not autenticated assign userCreditError to True 
             # and show alert on client side. 
