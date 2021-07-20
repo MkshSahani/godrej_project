@@ -1,14 +1,14 @@
 button.signupButton {
-    border : 2px solid rgb(228, 200, 78);
+    border : 2px solid rgb(29, 28, 22);
 }
 
 button.signupButton:hover {
-    background-color: rgb(228, 200, 78);
+    background-color: rgb(29, 28, 22);
 }
 
 nav.login_navbar {
     height : 100px;
-    border-bottom: 5px solid rgb(228, 200, 78);
+    border-bottom: 5px solid rgb(29, 28, 22);
 }
 
 div.bodyContent {
@@ -30,21 +30,21 @@ div.bodyContent div.formBody {
 
 
 div.bodyContent button.submitButton {
-    border : 2px solid rgb(228, 200, 78);
+    border : 2px solid rgb(29, 28, 22);
     background-color: white;
     color : black;
     
 }
 
 div.bodyContent button.submitButton:hover {
-    background-color: rgb(228, 200, 78);
+    background-color: rgb(29, 28, 22);
 }
 
 div.bodyContent div.formBody form input.form-control:focus {
-    box-shadow: inset 0 1px 1px rgb(228, 200, 78), 0 0 8px rgb(228, 200, 78);   
+    box-shadow: inset 0 1px 1px rgb(29, 28, 22), 0 0 8px rgb(29, 28, 22);   
 } 
 
 div.bodyContent img.LoginLogo {
-    margin-left : 200px;
+    margin-left : 180px;
     margin-top: 50px;
 }
