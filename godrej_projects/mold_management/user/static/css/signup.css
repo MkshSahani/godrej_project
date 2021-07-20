@@ -1,26 +1,20 @@
 button.signupButton {
-<<<<<<< HEAD
     border : 2px solid black; 
 }
 
 button.signupButton:hover {
     background-color: black; 
-=======
     border : 2px solid rgb(29, 28, 22);
 }
 
 button.signupButton:hover {
     background-color: rgb(29, 28, 22);
->>>>>>> f2a11b2fd1c93253670aed50323cb0ee035078dd
 }
 
 nav.login_navbar {
     height : 100px;
-<<<<<<< HEAD
     border-bottom: 5px solid black; 
-=======
     border-bottom: 5px solid rgb(29, 28, 22);
->>>>>>> f2a11b2fd1c93253670aed50323cb0ee035078dd
 }
 
 div.bodyContent {
@@ -41,30 +35,24 @@ div.bodyContent div.formBody {
 
 
 div.bodyContent button.submitButton {
-<<<<<<< HEAD
     border : 2px solid black;
-=======
     border : 2px solid rgb(29, 28, 22);
->>>>>>> f2a11b2fd1c93253670aed50323cb0ee035078dd
     background-color: white;
     color : black;
     
 }
 
 div.bodyContent button.submitButton:hover {
-<<<<<<< HEAD
     background-color: black;
 }
 
 div.bodyContent div.formBody form input.form-control:focus {
     box-shadow: inset 0 1px 1px black, 0 0 8px black;   
-=======
     background-color: rgb(29, 28, 22);
 }
 
 div.bodyContent div.formBody form input.form-control:focus {
     box-shadow: inset 0 1px 1px rgb(29, 28, 22), 0 0 8px rgb(29, 28, 22);   
->>>>>>> f2a11b2fd1c93253670aed50323cb0ee035078dd
 } 
 
 div.bodyContent img.LoginLogo {

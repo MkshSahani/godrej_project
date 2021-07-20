@@ -52,4 +52,7 @@ def mould_registration(request):
 @login_required 
 def mould_view(request, mould_id): 
     context = {}
-    mould = Mould.objects.get(mould_id = mould_id)
+    mould_data =  Mould.objects.get(mould_id = mould_id)
+    context['data'] = mould_data 
+
+    return render(request, 'mould_dataShow.html', context)
