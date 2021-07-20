@@ -9,6 +9,7 @@
 
 {% block body_content %}
 
+<<<<<<< HEAD
 {% comment %} 
 
   * NavBar for login page contains. 
@@ -43,6 +44,13 @@
               Sign up
             </b>
         </button>
+=======
+<nav class="navbar navbar-light login_navbar">
+  <div class="container-fluid">
+    <img src="{% static 'images/new.png' %}" />
+    <a class="" href = "{% url 'userSignup' %}">
+      <button class="btn signupButton" type="submit" ><b>Sign up</b></button>
+>>>>>>> f2a11b2fd1c93253670aed50323cb0ee035078dd
     </a> 
   
   </div>
@@ -62,6 +70,7 @@
   </div>
 {% endif %}
 
+<<<<<<< HEAD
 <div 
   class="bodyContent"> 
   
@@ -71,6 +80,11 @@
     
     <div 
       class="formBody"> 
+=======
+<div class="bodyContent"> 
+  <img class="LoginLogo" src="{% static 'images/new.png' %}" />
+    <div class="formBody"> 
+>>>>>>> f2a11b2fd1c93253670aed50323cb0ee035078dd
     {% comment %} Login Form {% endcomment %}
       
       <form 
