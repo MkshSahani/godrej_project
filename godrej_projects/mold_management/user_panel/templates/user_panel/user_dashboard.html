@@ -44,7 +44,7 @@
             </div> 
 
             <div class="col"> 
-                <a href="{% url 'MouldRegistration' %}"> 
+                <a href="{% url 'MouldUpdate' %}"> 
                 Mould View
                 </a> 
             </div> 
@@ -73,53 +73,92 @@
 
     <hr/>
     
-
+    <p class="h1 firstHeading" style="text-align : center;"> 
+            Mould Data Analysis
+    </p> 
+    
     <div class="MouldData"> 
+       
         <div class="row"> 
 
             <div class="col"> 
                 {% comment %} Tables about data regarding Mould {% endcomment %}
-                <table> 
-                    <tr> 
-                        <td> 
-                            Mould ID 
-                        </td> 
+               <table class="table"> 
+                    <thead>
+                        <tr>
+                            <th scope="col">Mould ID</th>
+                            <th scope="col">Mould Name</th>
+                            <th scope="col">Cavity Number</th>
+                            <th scope="col">Shots</th>
+                            <th scope="col"> alert </th> 
+                        </tr>
+                    </thead>
+                    
+                    <tbody> 
+                        {% for mould in mould_data %}
+                            {% if mould.alert %}
+                                <tr class="table-danger"> 
+                                    <td class="table-danger"> 
+                                        <a href="mould/{{ mould.mould_id }}"> 
+                                            {{ mould.mould_id }}
+                                        </a> 
+                                    </td> 
 
-                        <td> 
-                            Mould Name 
-                        </td>
 
-                        <td> 
-                            Alert 
-                        </td> 
-                    </tr> 
-                    {% for mould in mould_data %}
+                                    <td class="table-danger"> 
+                                        {{ mould.mould_name }}
+                                    </td> 
 
-                        <tr> 
-                            <td> 
-                                <a href="mould/{{ mould.mould_id }}">
-                                    {{ mould.mould_id }}
-                                </a> 
-                            </td> 
+                                  
 
-                           <td> 
-                                {{ mould.mould_name }}
-                            </td> 
+                                    <td class="table-danger"> 
+                                        {{ mould.cavity_number }}
+                                    </td> 
 
-                            <td> 
-                                {{ mould.alert }}
-                            </td>
-                        </tr> 
+                                    <td class="table-danger"> 
+                                        {{ mould.present_count }}
+                                    </td> 
 
-                    {% endfor %}
+                                    <td class="table-danger"> 
+                                        General Cleaning
+                                    </td> 
+                                </tr> 
+                            {% else %}
 
+                                <tr class="table-info"> 
+                                    <td class="table-info"> 
+                                        <a href="mould/{{ mould.mould_id }}"> 
+                                            {{ mould.mould_id }}
+                                        </a> 
+                                    </td> 
+                                    <td class="table-info"> 
+                                        {{ mould.mould_name }}
+                                    </td> 
+
+                                    <td class="table-info"> 
+                                        {{ mould.cavity_number }}
+                                    </td> 
+
+                                    <td class="table-info"> 
+                                        {{ mould.present_count }}
+                                    </td> 
+
+                                    <td class="table-info"> 
+                                        -
+                                    </td> 
+                                </tr> 
+
+                            {% endif %}
+                        {% endfor %}
+
+                    </tbody> 
                 </table> 
 
             </div> 
 
-            <div class="col"> 
+            <div class="col graphData"> 
                 {% comment %} Graph Plot on based of previous data {% endcomment %}
-
+                <img src="{% static 'images/graph1.jpg' %}" class="img-fluid graphMouldImg" alt="...">
             </div> 
         </div> 
     </div> 

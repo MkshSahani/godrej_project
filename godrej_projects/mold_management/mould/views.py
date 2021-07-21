@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould 
+from .models import Mould, MouldStatus 
 
 
 
@@ -56,3 +56,34 @@ def mould_view(request, mould_id):
     context['data'] = mould_data 
 
     return render(request, 'mould_dataShow.html', context)
+
+
+@login_required 
+def mould_update(request): 
+    context = {}
+    context['MouldUpdate'] = False 
+    if request.method == "POST": 
+        context['MouldUpdate'] = True 
+        mould_data = Mould.objects.all() 
+        context['Mould_Data'] = mould_data 
+        mould_id = request.POST.get('mouldID')
+        increment = request.POST.get('increment')
+
+        target_mould = Mould.objects.get(mould_id = mould_id)
+        target_mould.present_count = target_mould.present_count + int(increment) 
+        target_mould.save()
+
+
+        mould_entry = MouldStatus()
+        mould_entry.mould_id = target_mould 
+        mould_entry.count_increment = increment 
+        mould_entry.save()
+        print(mould_id, increment)
+        mould_entry_data = MouldStatus.objects.filter(mould_id = target_mould)
+        context['target_mould_data'] = mould_entry_data 
+
+        return render(request, 'mould_update.html', context)
+    else: 
+        mould_data = Mould.objects.all() 
+        context['Mould_Data'] = mould_data 
+        return render(request, 'mould_update.html', context)

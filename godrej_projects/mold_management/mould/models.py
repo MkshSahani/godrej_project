@@ -14,7 +14,7 @@ class Mould(models.Model):
 
  
     def __str__(self): 
-        return self.mould_name
+        return str(self.mould_id)
 
     def alert(self): 
         return self.threshold_value - self.present_count <= 500  
@@ -30,6 +30,15 @@ class MouldStatus(models.Model):
 
     def __str__(self): 
         return str(self.mould_id) 
+
+# -----------------------------------------------------------------------------------
+
+class MouldComment(models.Model): 
+
+    mould_id = models.ForeignKey(Mould, related_name='mould_chat', on_delete=models.PROTECT)
+    comment_text = models.TextField()
+    commented_by = models.ForeignKey(User,related_name='chat_user', on_delete=models.PROTECT)
+    commented_date_time == models.DateTimeField(auto_now_add=True)
 
 
 
