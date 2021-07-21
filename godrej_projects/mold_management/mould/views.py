@@ -124,3 +124,18 @@ def mould_update(request):
         mould_data = Mould.objects.all() 
         context['Mould_Data'] = mould_data 
         return render(request, 'mould_update.html', context)
+
+
+@login_required
+def mould_search(request): 
+    context = {}
+    mould_id = Mould.objects.all()
+    mould_list_id = []
+    for mould in mould_id: 
+        mould_list_id.append(mould.mould_id)
+    context['mould_id'] = mould_list_id
+    if request.method == "POST": 
+        mould_id = request.POST.get('mould_id')
+        return redirect(f'/mould/{mould_id}')
+    else: 
+        return render(request, 'mould_search.html', context)

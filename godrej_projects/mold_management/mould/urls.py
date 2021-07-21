@@ -4,5 +4,6 @@ from . import views
 urlpatterns = [
     path('registration/', views.mould_registration, name="MouldRegistration"), 
     path('<int:mould_id>/', views.mould_view, name = "MouldView"),
-    path('update/', views.mould_update,name = "MouldUpdate"), 
+    path('update/', views.mould_update,name = "MouldUpdate"),
+    path('mouldSearch/', views.mould_search, name = "MouldSearch"), 
 ]
