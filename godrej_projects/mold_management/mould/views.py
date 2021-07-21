@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould, MouldStatus 
-
-
-
+from .models import Mould, MouldStatus, MouldComment 
+import matplotlib.pyplot as plt 
+import os
 # ------------------------------------------------- 
 class MouldData: 
 
@@ -52,10 +51,48 @@ def mould_registration(request):
 @login_required 
 def mould_view(request, mould_id): 
     context = {}
+    if request.method == "POST": 
+        comment_on_mould_id = request.POST.get('id')
+        comment_text = request.POST.get('comment')
+        comment_by = request.user 
+        comment = MouldComment()
+        comment.comment_text = comment_text 
+        comment.commented_by = comment_by
+        comment.mould_id = Mould.objects.get(mould_id = comment_on_mould_id)
+        comment.save()
+        return redirect(f'/mould/{comment_on_mould_id}')
+
+    comments = MouldComment.objects.filter(mould_id = mould_id).order_by('commented_date_time')
+    comments = list(comments)[::-1]
+    print(comments)
+    context['comments'] = comments 
     mould_data =  Mould.objects.get(mould_id = mould_id)
     context['data'] = mould_data 
+    mould_status_data = MouldStatus.objects.filter(mould_id = mould_data).order_by('status_update')
+    
+    increment_date = []
+    increment_count = []
 
-    return render(request, 'mould_dataShow.html', context)
+    for mould in mould_status_data: 
+        increment_date.append(mould.status_update.date())
+        increment_count.append(mould.count_increment)
+    print(increment_count)
+    print(increment_date)
+    plt.title(f'Shot vs Date for Mould ID {mould_id}')
+    plt.xlabel('Date')
+    plt.ylabel('Shot Count')
+    plt.grid(True)
+    # plt.show()
+    plt.plot(increment_date, increment_count,marker='D', color='blue')
+    if os.path.isfile('mould/static/images/mould_daily_count.jpg'):
+        os.remove('mould/static/images/mould_daily_count.jpg')
+    plt.savefig('mould/static/images/mould_daily_count.png')
+
+    print(increment_count)
+    print(increment_date)    
+
+
+    return render(request, 'mould_id.html', context)
 
 
 @login_required 

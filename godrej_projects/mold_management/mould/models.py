@@ -38,7 +38,7 @@ class MouldComment(models.Model):
     mould_id = models.ForeignKey(Mould, related_name='mould_chat', on_delete=models.PROTECT)
     comment_text = models.TextField()
     commented_by = models.ForeignKey(User,related_name='chat_user', on_delete=models.PROTECT)
-    commented_date_time == models.DateTimeField(auto_now_add=True)
+    commented_date_time = models.DateTimeField(auto_now_add=True)
 
 
 

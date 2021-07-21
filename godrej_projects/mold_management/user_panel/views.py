@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from mould.models import Mould 
 import matplotlib.pyplot as plt 
 import random 
+import os 
 
 @login_required 
 def homePage(request): 
@@ -37,12 +38,9 @@ def homePage(request):
     plt.xlabel('Mould ID')
     plt.ylabel('Number of Shots')
     print(mould_id)
-    print(mould_shots_count)
-    plt.savefig('user_panel/static/images/graph1.jpg')
-    
-
-
-
+    print(mould_shots_count)    
+    # plt.savefig('user_panel/static/images/number_of_mould_vs_shots.png')
+    plt.close()
     context['mould_data'] = mould_data 
     print("----------------------")
     return render(request, 'user_panel/user_dashboard.html', context)
