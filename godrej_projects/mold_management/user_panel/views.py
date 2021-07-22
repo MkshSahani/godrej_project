@@ -4,6 +4,7 @@ from mould.models import Mould
 import matplotlib.pyplot as plt 
 import random 
 import os 
+import pandas as pd
 
 @login_required 
 def homePage(request): 
@@ -24,6 +25,18 @@ def homePage(request):
             mould_data[i] = mould_data[main_point]
             mould_data[main_point] = temp 
 
+   
+    graph_for_mould_number_vs_no_of_shots()
+    context['mould_data'] = mould_data 
+    print("----------------------")
+    return render(request, 'user_panel/user_dashboard.html', context)
+    
+
+# ------------------------------------------------------------- 
+# Graph Drawer. 
+
+def graph_for_mould_number_vs_no_of_shots(): 
+    mould_data = Mould.objects.all()
     mould_id = []
     mould_shots_count = []
     bar_color = []
@@ -40,10 +53,5 @@ def homePage(request):
     plt.ylabel('Number of Shots')
     print(mould_id)
     print(mould_shots_count)    
-    # plt.savefig('user_panel/static/images/number_of_mould_vs_shots.png')
-    # plt.show()
-    context['mould_data'] = mould_data 
-    print("----------------------")
-    return render(request, 'user_panel/user_dashboard.html', context)
-    
-
+    plt.savefig('user_panel/static/images/number_of_mould_vs_shots.png')
+    plt.close()

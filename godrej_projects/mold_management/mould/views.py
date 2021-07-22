@@ -71,31 +71,8 @@ def mould_view(request, mould_id):
     context['comments'] = comments 
     mould_data =  Mould.objects.get(mould_id = mould_id)
     context['data'] = mould_data 
-    mould_status_data = MouldStatus.objects.filter(mould_id = mould_data).order_by('status_update')
     
-    increment_date = []
-    increment_count = []
-
-    for mould in mould_status_data: 
-        increment_date.append(mould.status_update.date())
-        increment_count.append(mould.count_increment)
-    print(increment_count)
-    print(increment_date)
-    plt.title(f'Shot vs Date for Mould ID {mould_id}')
-    plt.xlabel('Date')
-    plt.ylabel('Shot Count')
-    # plt.show()
-    # plt.plot(increment_date, increment_count,marker='>', color='blue')
-    # beautify the x-labels
-    # plt.gcf().autofmt_xdate()
-    myFmt = mdates.DateFormatter('%D:%M:%Y')
-    plt.gca().xaxis.set_major_formatter(myFmt)
-    # plt.savefig('mould/static/images/mould_daily_count.png')
-    plt.show()
-    print(increment_count)
-    print(increment_date)    
-
-
+    drawGraphMould_vs_shots(mould_data)
     return render(request, 'mould_id.html', context)
 
 
@@ -155,3 +132,30 @@ def mould_data_update(request, mould_id):
     else: 
         return render(request, 'mould_data_update.html', context)
 
+
+
+# -----------------------------------------------
+# Graph Drawer. 
+
+def drawGraphMould_vs_shots(mould_id): 
+    mould_status_data = MouldStatus.objects.filter(mould_id = mould_id).order_by('status_update')
+    
+    increment_date = []
+    increment_count = []
+
+    for mould in mould_status_data: 
+        increment_date.append(mould.status_update.date())
+        increment_count.append(mould.count_increment)
+    print(increment_count)
+    print(increment_date)
+    plt.title(f'Shot vs Date for Mould ID {mould_id}')
+    plt.xlabel('Date')
+    plt.ylabel('Shot Count')
+    # plt.show()
+    plt.plot(increment_date, increment_count,marker='>', color='blue')
+    # beautify the x-labels
+    plt.gcf().autofmt_xdate()
+    myFmt = mdates.DateFormatter('%D:%M:%Y')
+    plt.gca().xaxis.set_major_formatter(myFmt)
+    plt.savefig('mould/static/images/mould_daily_count.png')
+    plt.close()
