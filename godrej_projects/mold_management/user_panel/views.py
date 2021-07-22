@@ -4,7 +4,6 @@ from mould.models import Mould
 import matplotlib.pyplot as plt 
 import random 
 import os 
-import pandas as pd
 
 @login_required 
 def homePage(request): 
