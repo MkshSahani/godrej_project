@@ -32,7 +32,6 @@ class MouldStatus(models.Model):
         return str(self.mould_id) 
 
 # -----------------------------------------------------------------------------------
-
 class MouldComment(models.Model): 
 
     mould_id = models.ForeignKey(Mould, related_name='mould_chat', on_delete=models.PROTECT)
@@ -43,4 +42,24 @@ class MouldComment(models.Model):
 
 
 
+# --------------------------------------------------------------- 
+class MouldData(models.Model): 
+
+    mould_id = models.ForeignKey(Mould, related_name='mould_data', on_delete=models.CASCADE)
+    serial_number = models.IntegerField()
+    department_name = models.CharField(max_length=100) 
+    product_line = models.CharField(max_length=100)  
+
+
+# ---------------------------------------------------------------- 
+class ProductLine(models.Model): 
+
+    product_line_number = models.IntegerField() # numbef of product line. 
+    proudct_line_name = models.CharField(max_length=100)
+
+# ------------------------------------------------------------------ 
+class Department(models.Model): 
+
+    department_name = models.CharField(max_length=20) # name of department. 
+    department_id = models.CharField(max_length=20) # id of department. 
 

@@ -31,9 +31,38 @@
             </div> 
         </div>
     </nav>
-    <p class="h2"> 
-        Mould ID : {{ data.mould_id }}
-    </p> 
+    <div class="heading_container">
+        <div class="row"> 
+            <div class="col">
+               <p class="h2"> 
+                    Mould ID : {{ data.mould_id }}
+                </p>
+            </div> 
+
+            <div class="col"> 
+                <a href="#"> 
+                    <button class="btn bg-dark text-white mould_button"> 
+                        update
+                    </button> 
+                </a> 
+
+                <a href="#"> 
+                    <button class="btn bg-dark text-white mould_button"> 
+                        add
+                    </button> 
+                </a> 
+
+                <a href="#"> 
+                    <button class="btn bg-dark text-white mould_button"> 
+                        delete
+                    </button> 
+                </a> 
+
+            </div> 
+        
+        </div> 
+
+    </div>  
     <hr /> 
 
     <div class="mould_data_show"> 

@@ -29,18 +29,19 @@ def homePage(request):
     bar_color = []
     color_list = ['black', 'red', 'green']
     for i in range(len(mould_data)): 
-        mould_id.append(str(mould_data[i].mould_id))
+        mould_id.append(mould_data[i].mould_id)
         mould_shots_count.append(mould_data[i].present_count)
         color_index = random.randint(0, 2)
         bar_color.append(color_list[color_index])
-    plt.bar(mould_id, mould_shots_count, color = bar_color)
+    mould_id.sort()
+    plt.bar([str(i) for i in mould_id], mould_shots_count, color = bar_color)
     plt.title('Shots vs Mould ID')
     plt.xlabel('Mould ID')
     plt.ylabel('Number of Shots')
     print(mould_id)
     print(mould_shots_count)    
     # plt.savefig('user_panel/static/images/number_of_mould_vs_shots.png')
-    plt.close()
+    # plt.show()
     context['mould_data'] = mould_data 
     print("----------------------")
     return render(request, 'user_panel/user_dashboard.html', context)

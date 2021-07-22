@@ -1,8 +1,11 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
 from .models import Mould, MouldStatus, MouldComment 
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt  
+import matplotlib.dates as mdates 
 import os
+import datetime 
+
 # ------------------------------------------------- 
 class MouldData: 
 
@@ -81,13 +84,14 @@ def mould_view(request, mould_id):
     plt.title(f'Shot vs Date for Mould ID {mould_id}')
     plt.xlabel('Date')
     plt.ylabel('Shot Count')
-    plt.grid(True)
     # plt.show()
-    plt.plot(increment_date, increment_count,marker='D', color='blue')
-    if os.path.isfile('mould/static/images/mould_daily_count.jpg'):
-        os.remove('mould/static/images/mould_daily_count.jpg')
-    plt.savefig('mould/static/images/mould_daily_count.png')
-
+    # plt.plot(increment_date, increment_count,marker='>', color='blue')
+    # beautify the x-labels
+    # plt.gcf().autofmt_xdate()
+    myFmt = mdates.DateFormatter('%D:%M:%Y')
+    plt.gca().xaxis.set_major_formatter(myFmt)
+    # plt.savefig('mould/static/images/mould_daily_count.png')
+    plt.show()
     print(increment_count)
     print(increment_date)    
 
@@ -139,3 +143,15 @@ def mould_search(request):
         return redirect(f'/mould/{mould_id}')
     else: 
         return render(request, 'mould_search.html', context)
+
+
+@login_required 
+def mould_data_update(request, mould_id): 
+    context = {}
+    mould_data = Mould.objects.get(mould_id = mould_id)
+    context['MouldData'] = mould_data 
+    if request.method == "POST": 
+        return render(request, 'mould_data_update.html', context)
+    else: 
+        return render(request, 'mould_data_update.html', context)
+

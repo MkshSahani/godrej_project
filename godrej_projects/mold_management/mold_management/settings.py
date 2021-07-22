@@ -30,6 +30,8 @@ LOGIN_REDIRECT_URL = ''
 LOGIN_URL = 'user/login/'
 # Application definition
 
+
+
 INSTALLED_APPS = [
     'user', # add user application. 
     'user_panel', # add user_panel application.
@@ -108,13 +110,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+
 LEAR_CACHE_ON_RESTART = True
 
 # Static files (CSS, JavaScript, Images)
