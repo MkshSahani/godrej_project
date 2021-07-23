@@ -8,16 +8,23 @@ class Mould(models.Model):
     mould_name = models.CharField(max_length=200)
     cavity_number = models.IntegerField()
     registered_date = models.DateTimeField(auto_now_add=True)
-    registered_by = models.ForeignKey(User, on_delete=models.RESTRICT)
-    threshold_value = models.IntegerField()
+    registered_by = models.ForeignKey(User, on_delete=models.RESTRICT) 
+    threshold_value = models.IntegerField() # * general cleaning threshold. 
     present_count = models.IntegerField()
+    # preventive_threshold_value -> 
+    # preventive -> 
+    # gc, pm -> threshold. 
+    
 
  
     def __str__(self): 
         return str(self.mould_id)
 
-    def alert(self): 
+    def alert(self):  # alert general clearning. 
         return self.threshold_value - self.present_count <= 500  
+
+    # prevetive cleaning. 
+
 
 
 # -------------------------------------------------------------------------------- 
