@@ -7,6 +7,11 @@ import os
 import datetime 
 
 # ------------------------------------------------- 
+
+
+MOULD_DELECTED = False 
+MOULD_ID_DELETED = None 
+
 class MouldData: 
 
     def __init__(self): 
@@ -32,14 +37,18 @@ def mould_registration(request):
         mould_id = request.POST.get('mouldNumber')
         mould_name = request.POST.get('mouldName')
         cavity_number = request.POST.get('cavityNumber')
-        threshold_number = request.POST.get('thresholdValue')
+        general_cleaning_threshold_value = request.POST.get('GeneralCleaningthresholdValue')
+        preventive_maintaince_value = request.POST.get('PreventiveMaintainceValue')
+        tool_life_count = request.POST.get('toolLifeCount')
         mould = Mould()
         mould.mould_id = mould_id 
         mould.mould_name = mould_name 
         mould.cavity_number = cavity_number 
         mould.registered_by = request.user 
-        mould.threshold_value = threshold_number 
+        mould.general_maintaince_cleaning_threshold_value = general_cleaning_threshold_value  
         mould.present_count = 0 
+        mould.preventive_maintaince_clearning_thresold_value = preventive_maintaince_value 
+        mould.tool_life = tool_life_count 
         mould.save() # mould registered. 
         context['mouldRegistered'] = True 
         context['mouldName'] = mould_name
@@ -111,6 +120,12 @@ def mould_update(request):
 def mould_search(request): 
     context = {}
     mould_id = Mould.objects.all()
+    global MOULD_DELECTED, MOULD_ID_DELETED 
+    if MOULD_DELECTED: 
+        context['mould_deleted'] = True 
+        context['mould_id_deleted'] = MOULD_ID_DELETED 
+        MOULD_ID_DELETED = None 
+        MOULD_DELECTED = False 
     mould_list_id = []
     for mould in mould_id: 
         mould_list_id.append(mould.mould_id)
@@ -159,3 +174,44 @@ def drawGraphMould_vs_shots(mould_id):
     plt.gca().xaxis.set_major_formatter(myFmt)
     plt.savefig('mould/static/images/mould_daily_count.png')
     plt.close()
+
+# ------------------------------------------------------------ 
+
+
+@login_required 
+def mould_value_update(request, mould_id): 
+    context = {}
+    context['mould_id'] = mould_id
+    mouldData = Mould.objects.get(mould_id = mould_id)
+    print(mouldData)
+    context['mouldData'] = mouldData 
+    context['moldUpdated'] = False 
+
+    if request.method == "POST": 
+        mould_name = request.POST.get('mouldName')
+        mould_cavity_number = request.POST.get('cavityNumber')
+        mould_general_cleaning = request.POST.get('GeneralCleaningthresholdValue')
+        mould_preventive_cleaning = request.POST.get('PreventiveMaintainceValue')
+        mould_tool_life = request.POST.get('toolLifeCount')
+        mouldData.mold_name = mould_name 
+        mouldData.cavity_number = mould_cavity_number 
+        mouldData.general_maintaince_cleaning_threshold_value = mould_general_cleaning 
+        mouldData.preventive_maintaince_clearning_thresold_value = mould_preventive_cleaning 
+        mouldData.tool_life = mould_tool_life 
+        mouldData.save() # tool date updated. 
+        context['mouldUpdated'] = True 
+        return render(request, 'mould_value_update.html', context)
+    return render(request, 'mould_value_update.html', context)
+
+# ----------------------- Mould Delete ------------------------- 
+@login_required 
+def mould_delete(request, mould_id):
+    mould_data = Mould.objects.get(mould_id = mould_id)
+    mould_data.delete()
+    global MOULD_DELECTED, MOULD_ID_DELETED
+    MOULD_ID_DELETED = mould_id 
+    MOULD_DELECTED = True 
+    return redirect('/mould/mouldSearch/')
+
+
+

@@ -40,19 +40,12 @@
             </div> 
 
             <div class="col"> 
-                <a href="#"> 
+                <a href="/mould/update/{{ data.mould_id }}"> 
                     <button class="btn bg-dark text-white mould_button"> 
                         update
                     </button> 
                 </a> 
-
-                <a href="#"> 
-                    <button class="btn bg-dark text-white mould_button"> 
-                        add
-                    </button> 
-                </a> 
-
-                <a href="#"> 
+                <a href="/mould/delete/{{ data.mould_id }}"> 
                     <button class="btn bg-dark text-white mould_button"> 
                         delete
                     </button> 
@@ -64,6 +57,7 @@
 
     </div>  
     <hr /> 
+
 
     <div class="mould_data_show"> 
         <div class="row">
@@ -118,10 +112,10 @@
 
                     <tr class="table-info"> 
                         <td class="table-info">
-                           Product Line  
+                           Tool Life Count   
                         </td> 
                         <td class="table-info"> 
-                            -
+                            {{ data.tool_life }}
                         </td> 
                     </tr> 
 
@@ -145,10 +139,10 @@
 
                     <tr class="table-info"> 
                         <td class="table-info">
-                            Threshold value  
+                            General Clearning count  
                         </td> 
                         <td class="table-info"> 
-                            {{ data.threshold_value }}
+                            {{ data.general_maintaince_cleaning_threshold_value }}
                         </td> 
                     </tr>
 

@@ -31,21 +31,20 @@
         </div>
     </nav>
     
-    {% if mouldRegistered %}
+    {% if mouldUpdated %}
       
        <div class="alert alert-success" role="alert">
-          {{ mouldName }} Mould has been, Registered you can add some more register. 
+          {{ mouldName }} Mould has been updated. 
        </div>
    
     {% endif %}
-
     <div class="container"> 
    
         <form method="POST" action="." autocomplete="off"> 
         {% csrf_token %}
         <legend>
             <p class="h2" style="padding-left : 150px;">  
-            Mould Registration
+            Mould Updation for mould ID : {{ mould_id }}
             </p>  
         </legend> 
 
@@ -56,7 +55,7 @@
                 for="exampleInputEmail1" 
                 class="form-label">
                 <b>
-                Mould Name 
+                    Mould Name
                 </b>
             </label>
             
@@ -66,30 +65,19 @@
             class="form-control" 
             id="mouldName" 
             aria-describedby="textHelp"
+            value = "{{ mouldData.mould_name }}"
             required >
         
         </div>
 
-
-      
-
-
         <div 
-            class="mb-3">
-            
-            <label 
-                for="exampleInputEmail1" 
-                class="form-label">
-                <b>
-                Mould Number 
-                </b>
-            </label>
-            
             <input 
             type="number" 
             name = "mouldNumber"
             class="form-control" 
             id="mouldNumber" 
+            value="{{ mould_id_to_upate }}"
+            style="display:none;"
             aria-describedby="mouldNumberHelp"
             required >
         
@@ -111,6 +99,7 @@
             name = "cavityNumber"
             class="form-control" 
             id="cavityNumber" 
+            value="{{ mouldData.cavity_number }}"
             aria-describedby="cavityNumber"
             required >
         </div> 
@@ -132,6 +121,7 @@
             name = "GeneralCleaningthresholdValue"
             class="form-control" 
             id="thresholdValue" 
+            value="{{ mouldData.general_maintaince_cleaning_threshold_value }}"
             aria-describedby="thresholdValue"
             required >
         </div> 
@@ -152,6 +142,7 @@
             name = "PreventiveMaintainceValue"
             class="form-control" 
             id="thresholdValue" 
+            value="{{ mouldData.preventive_maintaince_clearning_thresold_value }}"
             aria-describedby="thresholdValue"
             required >
         </div> 
@@ -174,6 +165,7 @@
             name = "toolLifeCount"
             class="form-control" 
             id="thresholdValue" 
+            value="{{ mouldData.tool_life }}"
             aria-describedby="thresholdValue"
             required >
         </div> 

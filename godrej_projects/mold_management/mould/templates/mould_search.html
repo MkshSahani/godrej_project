@@ -31,6 +31,12 @@
         </div>
     </nav>
     
+    {% if mould_deleted %}
+        <div class="alert alert-primary" role="alert">
+            {{ mould_id_deleted }} has been deleted from database.
+        </div>
+    {% endif %}
+
     <div class="container"> 
    
         <form method="POST" action="." autocomplete="off"> 

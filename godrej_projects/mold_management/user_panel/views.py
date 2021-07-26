@@ -18,7 +18,7 @@ def homePage(request):
     print(mould_data)
     main_point = -1 
     for i in range(len(mould_data)): 
-        if mould_data[i].alert() is True: 
+        if mould_data[i].general_alert() is True: 
             main_point += 1 
             temp = mould_data[i]
             mould_data[i] = mould_data[main_point]

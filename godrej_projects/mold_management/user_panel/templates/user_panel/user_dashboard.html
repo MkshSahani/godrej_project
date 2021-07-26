@@ -96,7 +96,7 @@
                     
                     <tbody> 
                         {% for mould in mould_data %}
-                            {% if mould.alert %}
+                            {% if mould.general_alert %}
                                 <tr class="table-danger"> 
                                     <td class="table-danger"> 
                                         <a href="mould/{{ mould.mould_id }}"> 
@@ -120,7 +120,13 @@
                                     </td> 
 
                                     <td class="table-danger"> 
-                                        General Cleaning
+                                        {% if mould.tool_life_over_alert %}
+                                            Tool Life Over Alert
+                                        {% elif mould.preventive_maintance_alert %}
+                                            Prevetive Maitaince Alert 
+                                        {% else %}
+                                            General Clearning Alert
+                                        {% endif %}
                                     </td> 
                                 </tr> 
                             {% else %}
