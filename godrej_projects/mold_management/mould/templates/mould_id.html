@@ -51,6 +51,24 @@
                     </button> 
                 </a> 
 
+                <a href="/mould/delete/{{ data.mould_id }}"> 
+                    <button class="btn bg-dark text-white mould_button"> 
+                        General Cleaning
+                    </button> 
+                </a> 
+
+                <a href="/mould/delete/{{ data.mould_id }}"> 
+                    <button class="btn bg-dark text-white mould_button"> 
+                        Preventive Clearning
+                    </button> 
+                </a> 
+
+                <a href="/mould/delete/{{ data.mould_id }}"> 
+                    <button class="btn bg-dark text-white mould_button"> 
+                        Damage
+                    </button> 
+                </a> 
+
             </div> 
         
         </div> 
@@ -94,19 +112,19 @@
 
                     <tr class="table-info"> 
                         <td class="table-info">
-                            Serial Number 
+                            Order Number 
                         </td> 
                         <td class="table-info"> 
-                            -
+                            {{ data.order_number }}
                         </td> 
                     </tr> 
 
                     <tr class="table-info"> 
                         <td class="table-info">
-                            Department 
+                            Preventive Cleaning
                         </td> 
                         <td class="table-info"> 
-                            -
+                            {{ data.preventive_maintaince_clearning_thresold_value }}
                         </td> 
                     </tr> 
 
@@ -139,10 +157,29 @@
 
                     <tr class="table-info"> 
                         <td class="table-info">
+                            Target 
+                        </td> 
+                        <td class="table-info"> 
+                            {{ data.number_of_shots_per_day }} shots per day
+                        </td> 
+                    </tr>
+
+                    <tr class="table-info"> 
+                        <td class="table-info">
                             General Clearning count  
                         </td> 
                         <td class="table-info"> 
                             {{ data.general_maintaince_cleaning_threshold_value }}
+                        </td> 
+                    </tr>
+
+
+                    <tr class="table-info"> 
+                        <td class="table-info">
+                            Mould Description   
+                        </td> 
+                        <td class="table-info"> 
+                            {{ data.moud_desc }}
                         </td> 
                     </tr>
 

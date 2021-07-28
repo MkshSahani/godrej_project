@@ -40,6 +40,14 @@ def mould_registration(request):
         general_cleaning_threshold_value = request.POST.get('GeneralCleaningthresholdValue')
         preventive_maintaince_value = request.POST.get('PreventiveMaintainceValue')
         tool_life_count = request.POST.get('toolLifeCount')
+        mould_desc = request.POST.get('mouldDesc')
+        mould_order_number = request.POST.get('orderNumber')
+        mould_raw_material = request.POST.get('rawMaterial')        
+        part_weight = request.POST.get('partWeight')
+        runner_weight = request.POST.get('runnerWeight')
+        tonnage = request.POST.get('tonnage')
+        cycle_time = request.POST.get('cycleTime')
+        target_shots = request.POST.get('shotsPerDay')
         mould = Mould()
         mould.mould_id = mould_id 
         mould.mould_name = mould_name 
@@ -49,6 +57,16 @@ def mould_registration(request):
         mould.present_count = 0 
         mould.preventive_maintaince_clearning_thresold_value = preventive_maintaince_value 
         mould.tool_life = tool_life_count 
+        
+        mould.moud_desc = mould_desc
+        mould.order_number = mould_order_number
+        mould.raw_material = mould_raw_material 
+        mould.part_weight = part_weight 
+        mould.runner_weight = runner_weight 
+        mould.tonnage = tonnage 
+        mould.cycle_time = cycle_time 
+        mould.number_of_shots_per_day = target_shots
+        
         mould.save() # mould registered. 
         context['mouldRegistered'] = True 
         context['mouldName'] = mould_name
@@ -149,7 +167,7 @@ def mould_data_update(request, mould_id):
 
 
 
-# -----------------------------------------------
+# ------------------------------------------------------------
 # Graph Drawer. 
 
 def drawGraphMould_vs_shots(mould_id): 
@@ -215,3 +233,9 @@ def mould_delete(request, mould_id):
 
 
 
+@login_required 
+def general_cleaning(request, mould_id): 
+    mould_data = Mould.objects.get(mould_id = mould_id)
+    context = {}
+
+    return render(request, 'mould_general_cleaning.html', context)

@@ -9,17 +9,35 @@ class Mould(models.Model):
     cavity_number = models.IntegerField()
     registered_date = models.DateTimeField(auto_now_add=True)
     registered_by = models.ForeignKey(User, on_delete=models.PROTECT) 
-
     general_maintaince_cleaning_threshold_value = models.IntegerField() 
     preventive_maintaince_clearning_thresold_value = models.IntegerField()
     tool_life = models.IntegerField()
-
-
     present_count = models.IntegerField()
+
+
+    moud_desc = models.CharField(max_length=100)
+    order_number = models.CharField(max_length=100)
+    raw_material = models.CharField(max_length=100)
+    part_weight = models.FloatField()  
+    runner_weight = models.FloatField()
+    tonnage = models.FloatField()
+    cycle_time = models.FloatField()
+    number_of_shots_per_day = models.IntegerField()
+
+
     # * tool live over shots. 
 
+    # * product code / mould_item_code : text.  
+    # * mould desc / : text 
+    # * order number : text 
+    # * raw material : text
+    # * part weight. : numeric 
+    # * runner weight 
+    # * tonnage 
+    # * cycle time. 
+    # * numbers per day. 
+   
 
- 
     def __str__(self): 
         return str(self.mould_id)
 
@@ -47,10 +65,6 @@ class Mould(models.Model):
     
     
 
-
-
-# TODO : -------------------------------------------------------------------------------- 
-
 class MouldStatus(models.Model): 
 
     mould_id = models.ForeignKey(Mould, related_name='mould_status', on_delete=models.CASCADE)
@@ -73,33 +87,4 @@ class MouldComment(models.Model):
     comment_text = models.TextField()
     commented_by = models.ForeignKey(User,related_name='chat_user', on_delete=models.CASCADE)
     commented_date_time = models.DateTimeField(auto_now_add=True)
-
-
-
-
-# TODO : --------------------------------------------------------------- 
-
-class MouldData(models.Model): 
-
-    mould_id = models.ForeignKey(Mould, related_name='mould_data', on_delete=models.CASCADE)
-    serial_number = models.IntegerField()
-    department_name = models.CharField(max_length=100) 
-    product_line = models.CharField(max_length=100)  
-
-
-
-# TODO : ---------------------------------------------------------------- 
-class ProductLine(models.Model): 
-
-    product_line_number = models.IntegerField() # numbef of product line. 
-    product_line_name = models.CharField(max_length=100)
-
-
-# ------------------------------------------------------------------ 
-class Department(models.Model): 
-
-    department_name = models.CharField(max_length=20) # name of department. 
-    department_id = models.CharField(max_length=20) # id of department. 
-
-# ------------------------------------------------------------------- 
 
