@@ -237,5 +237,8 @@ def mould_delete(request, mould_id):
 def general_cleaning(request, mould_id): 
     mould_data = Mould.objects.get(mould_id = mould_id)
     context = {}
+    context['mould_data'] = mould_data 
+    if request.method == "POST":
+        pass 
 
     return render(request, 'mould_general_cleaning.html', context)
