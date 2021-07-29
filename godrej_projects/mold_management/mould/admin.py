@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Mould, MouldStatus, MouldComment
+from .models import Mould, MouldStatus, MouldComment, GeneralCleaningPresent
 
 admin.site.register(Mould) # register Mould Model. 
 admin.site.register(MouldStatus)
 admin.site.register(MouldComment)
+admin.site.register(GeneralCleaningPresent)

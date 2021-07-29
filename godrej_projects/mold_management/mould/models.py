@@ -92,9 +92,9 @@ class MouldComment(models.Model):
 
 # ---------------------------------------------------------------------------------------- 
 
-class GeneralClearningPresent(models.Model): 
+class GeneralCleaningPresent(models.Model): 
 
-    mould_id = models.ForeignKey(Mould, related_name='mould_cleaning', on_delete=models.CASCADE, primary_key=True)
+    mould_id = models.OneToOneField(Mould, related_name='mould_cleaning', on_delete=models.CASCADE, primary_key=True)
     date_applied_for_cleaning = models.DateTimeField(auto_now_add=True)
     date_get_back_from_cleaning = models.DateTimeField(null=True)
     comment = models.CharField(max_length=200) # any comment. 
