@@ -37,14 +37,13 @@
             {% if NOT_DATA %}
 
                 <p class="h2"> 
-
+                    You have not filled forms required.
                 </p> 
-
             {% else %}
 
                 {% if ACCEPTED %}
 
-                    <p> 
+                    <p class="h2"> 
                         
                         {{ mould_data.mould_name }} is registered for 
                         General Cleaning on {{ mould_data.date_applied_for_cleaning.date }}, 

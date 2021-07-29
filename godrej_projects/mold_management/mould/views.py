@@ -247,20 +247,22 @@ def general_cleaning_accept(request):
     if request.method == "POST": 
         mould_id = request.POST.get('id')
         comment = request.POST.get('comment')
-        general_cleaning = GeneralCleaningPresent.objects.get(mould_id = mould_id)
-
+        try:
+            general_cleaning = GeneralCleaningPresent.objects.get(mould_id = mould_id)
+        except: 
+            general_cleaning = None 
         if general_cleaning is not None: 
             context['ALREDY_IN_SERVICE'] = True
-            return render(request, 'mould_glcean_accept.html',context) 
+            return render(request, 'mould_gclean_accept.html',context) 
         else: 
             general_cleaning_accept_object = GeneralCleaningPresent()
-            general_cleaning_accept.mould_id = Mould.objects.get(mould_id)
-            general_cleaning_accept.comment = comment 
-            general_cleaning.save()
+            general_cleaning_accept_object.mould_id = Mould.objects.get(mould_id = mould_id)
+            general_cleaning_accept_object.comment = comment 
+            general_cleaning_accept_object.save()
         
             context['ACCEPTED'] = True 
             context['mould_data'] = general_cleaning_accept_object
             return render(request, 'mould_gclean_accept.html', context)
     else: 
         context['NO_DATA'] = True 
-        return render(request, 'mould_gclean_accpet.html', context)
+        return render(request, 'mould_gclean_accept.html', context)
