@@ -106,3 +106,11 @@ class GeneralClearningArchieve(models.Model):
     date_get_back_from_cleaning = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=200) # any comment. 
 
+# ---------------------------------------------
+class PreventiveMaintaince(models.Model): 
+    mould_id = models.OneToOneField(Mould, related_name='mould_pm_history')
+    date_applied_for_maitaince = models.DateTimeField(auto_now_add=True)
+    date_of_get_back_from_cleaning = models.DateTimeField(null = True)
+    comment = models.CharField(max_length=200) 
+
+
