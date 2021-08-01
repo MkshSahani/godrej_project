@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
 from .models import Mould, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve 
@@ -278,9 +279,11 @@ class DataCollector:
         if mould_id is None: 
             try:
                 self.mould_data = MouldStatus.objects.filter(mould_id)  
-                self.mould_cleaning_data = GeneralClearningArchieve.objects.filter(mould_id = mould_id) 
             except: 
                 self.mould_data = None 
+            try:      
+                self.mould_cleaning_data = GeneralClearningArchieve.objects.filter(mould_id = mould_id) 
+            except:
                 self.mould_cleaning_data = None 
         
         else: 
@@ -288,4 +291,15 @@ class DataCollector:
             self.mould_cleaning_data = None 
         # in constructor we have calculated mould data 
         # now we will manuplate is to do desired calcualtion. 
-        
+    
+    def get_commulative_count(self):
+        count = 0 
+        if self.mould_data is None: 
+            return count 
+        for mould in self.mould_ata: 
+            count = count + mould.count_increment 
+
+        return count 
+    
+     
+    
