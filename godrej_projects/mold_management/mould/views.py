@@ -298,8 +298,9 @@ class DataCollector:
             return count 
         for mould in self.mould_ata: 
             count = count + mould.count_increment 
-
         return count 
     
-     
+    
+
+
     
