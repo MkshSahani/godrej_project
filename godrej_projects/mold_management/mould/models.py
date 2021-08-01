@@ -101,7 +101,7 @@ class GeneralCleaningPresent(models.Model):
 
 # --------------------------------------------- 
 class GeneralClearningArchieve(models.Model): 
-    mould_id = models.OneToOneField(Mould, related_name='mould_gc_history', on_delete=models.CASCADE, primary_key=True)
+    mould_id = models.ForeignKey(Mould, related_name='mould_gc_history', on_delete=models.CASCADE, primary_key=True)
     date_applied_for_cleaning = models.DateTimeField()
     date_get_back_from_cleaning = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=200) # any comment. 
@@ -112,5 +112,4 @@ class PreventiveMaintaince(models.Model):
     date_applied_for_maitaince = models.DateTimeField(auto_now_add=True)
     date_of_get_back_from_cleaning = models.DateTimeField(null = True)
     comment = models.CharField(max_length=200) 
-
 

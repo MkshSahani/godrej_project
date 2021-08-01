@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould, MouldStatus, MouldComment, GeneralCleaningPresent
+from .models import Mould, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve 
 import matplotlib.pyplot as plt  
 import matplotlib.dates as mdates 
 import os
@@ -266,3 +266,26 @@ def general_cleaning_accept(request):
     else: 
         context['NO_DATA'] = True 
         return render(request, 'mould_gclean_accept.html', context)
+
+
+
+# -----------------------------------------------
+# DataCollectorClass 
+
+class DataCollector: 
+
+    def __init__(self, mould_id = None): 
+        if mould_id is None: 
+            try:
+                self.mould_data = MouldStatus.objects.filter(mould_id)  
+                self.mould_cleaning_data = GeneralClearningArchieve.objects.filter(mould_id = mould_id) 
+            except: 
+                self.mould_data = None 
+                self.mould_cleaning_data = None 
+        
+        else: 
+            self.mould_data = None 
+            self.mould_cleaning_data = None 
+        # in constructor we have calculated mould data 
+        # now we will manuplate is to do desired calcualtion. 
+        
