@@ -271,7 +271,11 @@ def general_cleaning_accept(request):
 
 # ----------------------------------------------
 
-
+def inspection_type_choice(request): 
+    context = {}
+    # render mould insepction choince html page with context if we need any variable. 
+    # init is here. 
+    return render(request, 'mould_inspection_choice.html', context) 
 
 
 

@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete/<int:mould_id>/', views.mould_delete, name = "MouldDeleted"), 
     path('gclean/<int:mould_id>', views.general_cleaning, name = "Gcleaning"), 
     path('gclearnaccept/', views.general_cleaning_accept, name = "GcleanAccept"),
+    path('inspect/', views.inspection_type_choice, name = "Inspect"), 
 ]
