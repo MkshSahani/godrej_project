@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'user', # add user application. 
     'user_panel', # add user_panel application.
     'mould', # register mould application in system. 
+    'MouldQuality', # mould quality. 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

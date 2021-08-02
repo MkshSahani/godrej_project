@@ -113,3 +113,4 @@ class PreventiveMaintaince(models.Model):
     date_of_get_back_from_cleaning = models.DateTimeField(null = True)
     comment = models.CharField(max_length=200) 
 
+

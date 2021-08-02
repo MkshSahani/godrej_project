@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def QualityPageRender(request): 
+    context = {}
+    return render(request, 'quality/mould_quality.html', context)

@@ -9,4 +9,5 @@ urlpatterns = [
     path('user/', include('user.urls')), # user application urls start. 
     path('', include('user_panel.urls')), 
     path('mould/', include('mould.urls')), 
+    path('quality/', include('MouldQuality.urls')), 
 ]
