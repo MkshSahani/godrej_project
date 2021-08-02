@@ -269,6 +269,11 @@ def general_cleaning_accept(request):
         return render(request, 'mould_gclean_accept.html', context)
 
 
+# ----------------------------------------------
+
+
+
+
 
 # -----------------------------------------------
 # DataCollectorClass 
