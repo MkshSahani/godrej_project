@@ -5,4 +5,4 @@
 # IQI -> dashboard. 
 # cappa 
 # montly basis reciving and rejection. 
-# 
+# SQSA : score -> SAA sign  

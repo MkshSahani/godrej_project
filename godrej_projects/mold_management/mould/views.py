@@ -291,6 +291,17 @@ def mould_unload(request):
     return render(request, 'inspection_mould_register.html', context) # render mould unload html page. 
 
 
+# ----------------------------------------------- 
+
+def mould_daily_inspection(request): 
+
+    context = {}
+
+    # TODO : form data collection function Here. 
+    
+
+    return render(request, 'inspection_mould_inspec.html', context) # render mould inspection html page. 
+
 # -----------------------------------------------
 # DataCollectorClass 
 
