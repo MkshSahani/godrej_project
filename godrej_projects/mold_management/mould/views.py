@@ -279,6 +279,18 @@ def inspection_type_choice(request):
 
 
 
+
+
+# ----------------------------------------------- 
+
+def mould_unload(request): 
+    context = {}
+
+    # TODO : form data collection function Here. 
+
+    return render(request, 'inspection_mould_register.html', context) # render mould unload html page. 
+
+
 # -----------------------------------------------
 # DataCollectorClass 
 
