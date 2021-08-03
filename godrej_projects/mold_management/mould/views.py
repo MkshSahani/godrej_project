@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve 
+from .models import Mould, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload 
 import matplotlib.pyplot as plt  
 import matplotlib.dates as mdates 
 import os
@@ -296,6 +296,18 @@ def mould_unload(request):
         clause_4 = request.POST.get('inspect_caluse_4')
         clause_5 = request.POST.get('inspect_caluse_5')
         clause_6 = request.POST.get('inspect_caluse_6')
+
+        mould_unload_obj = MouldUnload()
+        mould_unload_obj.mould_id = mould_id 
+        mould_unload_obj.mould_name = mould_name 
+        mould_unload_obj.clause_1 = False if clause_1 is None else True
+        mould_unload_obj.clause_2 = False if clause_2 is None else True 
+        mould_unload_obj.clause_3 = False if clause_3 is None else True 
+        mould_unload_obj.clause_4 = False if clause_4 is None else True
+        mould_unload_obj.clause_5 = False if clause_5 is None else True
+        mould_unload_obj.clause_6 = False if clause_6 is None else True 
+
+        mould_unload_obj.save() # save unloaded data in object. 
 
         context['UNLOAD'] = True 
         context['mould_name'] = mould_name 

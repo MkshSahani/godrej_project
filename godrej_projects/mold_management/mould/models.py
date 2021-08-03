@@ -114,3 +114,20 @@ class PreventiveMaintaince(models.Model):
     comment = models.CharField(max_length=200) 
 
 
+# ----------------------------------------------------------------------- 
+class MouldUnload(models.Model): 
+
+    mould_id = models.IntegerField()
+    mould_name = models.CharField(max_length = 200)
+    cavity_number = models.CharField(max_length=200)
+
+    clause_1 = models.BooleanField()
+    clause_2 = models.BooleanField()
+    clause_3 = models.BooleanField()
+    clause_4 = models.BooleanField()
+    clause_5 = models.BooleanField()
+    clause_6 = models.BooleanField()
+
+
+# ---------------------------------------------------------------
+
