@@ -286,7 +286,19 @@ def inspection_type_choice(request):
 def mould_unload(request): 
     context = {}
 
-    # TODO : form data collection function Here. 
+    if request.method == "POST": 
+        mould_name = request.POST.get('mouldName')
+        mould_id = request.POST.get('mouldNumber')
+        cavity_number = request.POST.get('cavityNumber')
+        clause_1 = request.POST.get('inspect_clause_1')
+        clause_2 = request.POST.get('inspect_caluse_2')
+        clause_3 = request.POST.get('inspect_caluse_3')
+        clause_4 = request.POST.get('inspect_caluse_4')
+        clause_5 = request.POST.get('inspect_caluse_5')
+        clause_6 = request.POST.get('inspect_caluse_6')
+
+        context['UNLOAD'] = True 
+        context['mould_name'] = mould_name 
 
     return render(request, 'inspection_mould_register.html', context) # render mould unload html page. 
 
@@ -298,7 +310,7 @@ def mould_daily_inspection(request):
     context = {}
 
     # TODO : form data collection function Here. 
-    
+
 
     return render(request, 'inspection_mould_inspec.html', context) # render mould inspection html page. 
 

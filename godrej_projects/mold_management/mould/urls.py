@@ -12,6 +12,6 @@ urlpatterns = [
     path('gclean/<int:mould_id>', views.general_cleaning, name = "Gcleaning"), 
     path('gclearnaccept/', views.general_cleaning_accept, name = "GcleanAccept"),
     path('inspect/', views.inspection_type_choice, name = "Inspect"), 
-    path('inspect/mouldunload', views.mould_search, name = "MouldUnLoad"), 
+    path('inspect/mouldunload', views.mould_unload, name = "MouldUnLoad"), 
     path('inspect/mouldInspect', views.mould_daily_inspection, name = "MouldInspect"), 
 ]
