@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload 
+from .models import Mould, MouldDailyCheck, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload, MouldDailyCheck 
 import matplotlib.pyplot as plt  
 import matplotlib.dates as mdates 
 import os
@@ -291,11 +291,14 @@ def mould_unload(request):
         mould_id = request.POST.get('mouldNumber')
         cavity_number = request.POST.get('cavityNumber')
         clause_1 = request.POST.get('inspect_clause_1')
-        clause_2 = request.POST.get('inspect_caluse_2')
-        clause_3 = request.POST.get('inspect_caluse_3')
-        clause_4 = request.POST.get('inspect_caluse_4')
-        clause_5 = request.POST.get('inspect_caluse_5')
-        clause_6 = request.POST.get('inspect_caluse_6')
+        clause_2 = request.POST.get('inspect_clause_2')
+        clause_3 = request.POST.get('inspect_clause_3')
+        clause_4 = request.POST.get('inspect_clause_4')
+        clause_5 = request.POST.get('inspect_clause_5')
+        clause_6 = request.POST.get('inspect_clause_6')
+        clause_7 = request.POST.get('inspect_clause_7')
+        print(mould_id, clause_1, clause_2, clause_3, clause_4)
+        print(clause_5, clause_6, clause_7)
 
         mould_unload_obj = MouldUnload()
         mould_unload_obj.mould_id = mould_id 
@@ -320,9 +323,49 @@ def mould_unload(request):
 def mould_daily_inspection(request): 
 
     context = {}
+    mould_data = Mould.objects.all()
+    mould_id = []
+    for mould in mould_data: 
+        mould_id.append(mould.mould_id)
+    context['mould_id'] = mould_id 
+    if request.method == "POST": 
+        machine_number = request.POST.get('machineNumber')
+        mould_id = request.POST.get('mouldNumber')
+        cavity_number = request.POST.get('cavityNumber')
+        clause_1 = request.POST.get('inspect_clause_1')
+        clause_2 = request.POST.get('inspect_clause_2')
+        clause_3 = request.POST.get('inspect_clause_3')
+        clause_4 = request.POST.get('inspect_clause_4')
+        clause_5 = request.POST.get('inspect_clause_5')
+        clause_6 = request.POST.get('inspect_clause_6')
+        clause_7 = request.POST.get('inspect_clause_7')
+        clause_8 = request.POST.get('inspect_clause_8')
+        clause_9 = request.POST.get('inspect_clause_9')
+        clause_10 = request.POST.get('inspect_clause_10')
 
-    # TODO : form data collection function Here. 
 
+
+
+        print(mould_id, machine_number, clause_1, clause_2, clause_3, clause_4)
+        print(clause_5, clause_6, clause_7, clause_8, clause_9, clause_10)
+        
+        mould_daily_chec_object = MouldDailyCheck()
+        mould_daily_chec_object.mould_id = Mould.objects.get(mould_id = mould_id)
+        mould_daily_chec_object.machine_id = machine_number  
+        mould_daily_chec_object.clause_1 = False if clause_1 is None else True
+        mould_daily_chec_object.clause_2 = False if clause_2 is None else True 
+        mould_daily_chec_object.clause_3 = False if clause_3 is None else True 
+        mould_daily_chec_object.clause_4 = False if clause_4 is None else True
+        mould_daily_chec_object.clause_5 = False if clause_5 is None else True
+        mould_daily_chec_object.clause_6 = False if clause_6 is None else True
+        mould_daily_chec_object.clause_7 = False if clause_7 is None else True 
+        mould_daily_chec_object.clause_8 = False if clause_8 is None else True
+        mould_daily_chec_object.clause_9 = False if clause_9 is None else True
+        mould_daily_chec_object.clause_10 = False if clause_10 is None else True
+        mould_daily_chec_object.save() # save daily updates.
+
+        context['SAVED'] = True 
+        context['mould_id_value'] = mould_id 
 
     return render(request, 'inspection_mould_inspec.html', context) # render mould inspection html page. 
 

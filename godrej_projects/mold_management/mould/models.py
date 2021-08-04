@@ -131,3 +131,20 @@ class MouldUnload(models.Model):
 
 # ---------------------------------------------------------------
 
+class MouldDailyCheck(models.Model): 
+
+    mould_id = models.ForeignKey(Mould, related_name='Machine_Mould', on_delete=models.PROTECT)
+    machine_id = models.CharField(max_length=100)
+    date_time_of_update = models.DateTimeField(auto_now_add=True) # user time when data uploaded. 
+    clause_1 = models.BooleanField()
+    clause_2 = models.BooleanField()
+    clause_3 = models.BooleanField()
+    clause_4 = models.BooleanField()
+    clause_5 = models.BooleanField()
+    clause_6 = models.BooleanField()
+    clause_7 = models.BooleanField()
+    clause_8 = models.BooleanField()
+    clause_9 = models.BooleanField()
+    clause_10 = models.BooleanField()
+
+
