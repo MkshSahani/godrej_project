@@ -31,6 +31,19 @@
             </div> 
         </div>
     </nav>
+
+    {% if BACK_G_CLEAN %}
+         <div class="alert alert-success" role="alert">
+          Mould Alert : Mould is Back from General Cleanning. 
+       </div>
+    {% endif %}
+
+        {% if BACK_P_CLEAN %}
+         <div class="alert alert-success" role="alert">
+          Mould Alert : Mould is Back from Preventive Maintaince. 
+       </div>
+    {% endif %}
+
     <div class="heading_container">
         <div class="row"> 
             <div class="col">
@@ -57,17 +70,17 @@
                     </button> 
                 </a> 
 
-                <a href="/mould/delete/{{ data.mould_id }}"> 
+                <a href="/mould/pmaintain/{{ data.mould_id }}"> 
                     <button class="btn bg-dark text-white mould_button"> 
                         Preventive Clearning
                     </button> 
                 </a> 
 
-                <a href="/mould/delete/{{ data.mould_id }}"> 
+                {% comment %} <a href="/mould/delete/{{ data.mould_id }}"> 
                     <button class="btn bg-dark text-white mould_button"> 
                         Damage
                     </button> 
-                </a> 
+                </a>  {% endcomment %}
 
             </div> 
         
@@ -195,10 +208,113 @@
       
    {% comment %} Comments. {% endcomment %}
     
-    <div class="container comment_box"> 
+    <hr /> 
+    {% if IN_CLEAN %}
+        <div class="container"> 
+            <table class="table"> 
+                <thread> 
+                    <th class="col"> 
+                        Mould ID 
+                    </th> 
 
-        
+                    <th class="col"> 
+                        Date
+                    </th> 
 
+                    <th class="col"> 
+                        Order ID 
+                    </th> 
+
+                    <th class="col"> 
+                        Get Back from Cleaning
+                    </th> 
+                <thead> 
+
+                <tbody class="table-info"> 
+                    <tr class="table-info"> 
+                        <td class="table-info">
+                            {{ mould_g_clean_data.mould_id.mould_id }}
+                        </td>
+
+                        <td class="table-info">
+                            {{ mould_g_clean_data.date_applied_for_cleaning.date }}
+                        </td>
+
+                        <td class="table-info">
+                            {{ mould_g_clean_data.mould_id.order_number }}
+                        </td>
+
+                        <td class="table-info">
+                            <a href="/mould/getBackGclean/{{ mould_g_clean_data.mould_id }}">
+                                General Cleaning completed.
+                            </a> 
+                        </td>
+                        
+
+                    </tr> 
+
+
+                </tbody> 
+            </table> 
+        </div> 
+
+    {% endif %}
+
+
+
+    {% if IN_MAIN %}
+        <div class="container"> 
+            <table class="table"> 
+                <thread> 
+                    <th class="col"> 
+                        Mould ID 
+                    </th> 
+
+                    <th class="col"> 
+                        Date
+                    </th> 
+
+                    <th class="col"> 
+                        Order ID 
+                    </th> 
+
+                    <th class="col"> 
+                        Get Back from Cleaning
+                    </th> 
+                <thead> 
+
+                <tbody class="table-info"> 
+                    <tr class="table-info"> 
+                        <td class="table-info">
+                            {{ mould_p_main.mould_id.mould_id }}
+                        </td>
+
+                        <td class="table-info">
+                            {{ mould_p_main.date_applied_for_cleaning.date }}
+                        </td>
+
+                        <td class="table-info">
+                            {{ mould_p_main.mould_id.order_number }}
+                        </td>
+
+                        <td class="table-info">
+                            <a href="/mould/getBackMain/{{ mould_p_main.mould_id }}">
+                                preventive maintaince complete
+                            </a> 
+                        </td>
+                        
+
+                    </tr> 
+
+
+                </tbody> 
+            </table> 
+        </div> 
+
+    {% endif %}
+
+
+    <div class="container comment_box" style="margin-top : -50px;"> 
     
         <form action="." method = "POST"> 
             {% csrf_token %}

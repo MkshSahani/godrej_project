@@ -1,7 +1,8 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould, MouldDailyCheck, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload, MouldDailyCheck 
+from .models import Mould, MouldDailyCheck, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload, MouldDailyCheck, PreventiveMaintaince 
+from .models import GeneralClearningArchieve, PreventiveMaintainceArchive
 import matplotlib.pyplot as plt  
 import matplotlib.dates as mdates 
 import os
@@ -12,6 +13,9 @@ import datetime
 
 MOULD_DELECTED = False 
 MOULD_ID_DELETED = None 
+BACK_FROM_GCLEAN = False 
+BACK_FROM_PCLEAN = False 
+
 
 class MouldData: 
 
@@ -93,6 +97,19 @@ def mould_view(request, mould_id):
         comment.save()
         return redirect(f'/mould/{comment_on_mould_id}')
 
+    global BACK_FROM_GCLEAN, BACK_FROM_PCLEAN
+    if BACK_FROM_GCLEAN: 
+        context['BACK_G_CLEAN'] = True 
+        BACK_FROM_GCLEAN = False 
+    else: 
+        context['BACK_G_CLEAN'] = False 
+
+    if BACK_FROM_PCLEAN: 
+        context['BACK_P_CLEAN'] = True 
+        BACK_FROM_PCLEAN = False 
+    else: 
+         context['BACK_P_CLEAN'] = False
+
     comments = MouldComment.objects.filter(mould_id = mould_id).order_by('commented_date_time')
     comments = list(comments)[::-1]
     print(comments)
@@ -100,6 +117,25 @@ def mould_view(request, mould_id):
     mould_data =  Mould.objects.get(mould_id = mould_id)
     context['data'] = mould_data 
     
+    # if mould in general_cleaning 
+
+    try: 
+        mould_g_clean_data = GeneralCleaningPresent.objects.get(mould_id = mould_data)
+        print(mould_g_clean_data)
+        context['mould_g_clean_data'] = mould_g_clean_data 
+        context['IN_CLEAN'] = True 
+    except: 
+        context['IN_CLEAN'] = False 
+
+    
+    try: 
+        mould_p_maintain = PreventiveMaintaince.objects.get(mould_id = mould_data)
+        print(mould_p_maintain)
+        context['mould_p_main'] = mould_p_maintain 
+        context['IN_MAIN'] = True 
+    except: 
+        context['IN_MAIN'] = False 
+
     drawGraphMould_vs_shots(mould_data)
     return render(request, 'mould_id.html', context)
 
@@ -243,6 +279,14 @@ def general_cleaning(request, mould_id):
 
 
 @login_required 
+def p_maintaince(request, mould_id): 
+    mould_data = Mould.objects.get(mould_id = mould_id)
+    context = {}
+    context['mould_data'] = mould_data 
+    return render(request, 'mould_preventive_maintain.html', context)
+
+
+@login_required 
 def general_cleaning_accept(request): 
     context = {}
     if request.method == "POST": 
@@ -262,12 +306,41 @@ def general_cleaning_accept(request):
             general_cleaning_accept_object.save()
         
             context['ACCEPTED'] = True 
-            context['mould_data'] = general_cleaning_accept_object
+            context['mould_data'] = Mould.objects.get(mould_id = mould_id)
+            print("----------------")
+            print(context['mould_data'])
             return render(request, 'mould_gclean_accept.html', context)
     else: 
         context['NO_DATA'] = True 
         return render(request, 'mould_gclean_accept.html', context)
 
+@login_required 
+def p_maintain_accept(request):
+    context = {}
+    if request.method == "POST": 
+        mould_id = request.POST.get('id')
+        comment = request.POST.get('comment')
+        try:
+            general_cleaning = PreventiveMaintaince.objects.get(mould_id = mould_id)
+        except: 
+            general_cleaning = None 
+        if general_cleaning is not None: 
+            context['ALREDY_IN_SERVICE'] = True
+            return render(request, 'mould_pmaintain_accept.html',context) 
+        else: 
+            general_cleaning_accept_object = PreventiveMaintaince()
+            general_cleaning_accept_object.mould_id = Mould.objects.get(mould_id = mould_id)
+            general_cleaning_accept_object.comment = comment 
+            general_cleaning_accept_object.save()
+        
+            context['ACCEPTED'] = True 
+            context['mould_data'] = Mould.objects.get(mould_id = mould_id)
+            print("----------------")
+            print(context['mould_data'])
+            return render(request, 'mould_pmaintain_accept.html', context)
+    else: 
+        context['NO_DATA'] = True 
+        return render(request, 'mould_gclean_accept.html', context)
 
 # ----------------------------------------------
 
@@ -399,7 +472,33 @@ class DataCollector:
             count = count + mould.count_increment 
         return count 
     
+@login_required 
+def mould_back_from_cleaning(request, mould_id): 
+    global BACK_FROM_GCLEAN
+    print("----------")
+     
+    mould_g_clean_data = GeneralCleaningPresent.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
+    mould_g_clean_archive_data = GeneralClearningArchieve()
+    mould_g_clean_archive_data.mould_id = mould_g_clean_data.mould_id 
+    
+    mould_g_clean_archive_data.date_applied_for_cleaning = mould_g_clean_data.date_applied_for_cleaning 
+    mould_g_clean_archive_data.comment = mould_g_clean_data.comment 
+    mould_g_clean_archive_data.save()
+    mould_g_clean_data.delete()
+    BACK_FROM_GCLEAN = True 
+    return redirect(f'/mould/{mould_id}')
     
 
-
-    
+@login_required 
+def mould_back_from_maintaince(request, mould_id): 
+    print("----------") 
+    global BACK_FROM_PCLEAN
+    mould_g_clean_data = PreventiveMaintaince.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
+    mould_g_clean_archive_data = PreventiveMaintainceArchive()
+    mould_g_clean_archive_data.mould_id = mould_g_clean_data.mould_id 
+    mould_g_clean_archive_data.date_applied_for_maitaince= mould_g_clean_data.date_applied_for_maitaince 
+    mould_g_clean_archive_data.comment = mould_g_clean_data.comment 
+    mould_g_clean_archive_data.save()
+    mould_g_clean_data.delete()
+    BACK_FROM_PCLEAN = True 
+    return redirect(f'/mould/{mould_id}')
