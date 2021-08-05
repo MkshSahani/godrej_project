@@ -57,13 +57,90 @@
 
              <div class="col"> 
                 <a href="{% url 'MouldRegistration' %}"> 
-                    Mould data
+                    Inspection Data
                 </a> 
             </div> 
 
             
 
         </div> 
+
+    </div> 
+
+    <p class="h2" style="margin-left : 500px;"> 
+        Mould Data with Order and commulative Shots Count
+    </p> 
+    <hr />
+
+
+    <div class="container"> 
+
+        <table class="table"> 
+
+            <thead> 
+                <th class="col"> 
+                    Mould ID 
+                </th> 
+                <th class="col"> 
+                    Order Number
+                </th> 
+
+                <th class="col"> 
+                    Date of REG.
+                </th> 
+
+                <th class="col"> 
+                    Number of time Gone <br/> 
+                    General Cleaning
+                </th> 
+
+                <th class="col"> 
+                    Number of time Gone <br/> 
+                    Preventive Maintaince
+                </th> 
+
+                <th class="col"> 
+                    Commulative Count
+                </th> 
+
+            </thead> 
+
+            <tbody class="table-info"> 
+
+                {% for mould_values in mould_data %}
+                <tr class="table-info"> 
+
+                    <td class="table-info"> 
+                        {{ mould_values.mould_data.mould_id }}
+                    </td> 
+
+                    <td class="table-info"> 
+                        {{ mould_values.mould_data.order_number }}
+                    </td>
+
+                    <td class="table-info"> 
+                        {{ mould_values.mould_data.registered_date.date }}
+                    </td>
+                    <td class="table-info"> 
+                        {{ mould_values.g_clean }}
+                    </td>
+
+                    <td class="table-info"> 
+                        {{ mould_values.p_main }}
+                    </td>
+
+                    <td class="table-info"> 
+                        {{ mould_values.commulative_count }}
+                    </td>
+
+
+                </tr> 
+
+                {% endfor %}
+
+            </tbody> 
+
+        </table> 
 
     </div> 
 
