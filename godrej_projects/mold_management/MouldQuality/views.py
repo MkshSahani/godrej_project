@@ -11,6 +11,9 @@ def QualityPageRender(request):
     
     for mould in mould_data_list: 
         mould_data_collector = DataCollector(mould.mould_id)
+        print("-----")
+        print(mould_data_collector.get_commulative_count())
+        print("-----")
         mould_commulative_cont_data.append(MouldCommulativeCount(mould, 
         
             mould_data_collector.get_commulative_count(), 

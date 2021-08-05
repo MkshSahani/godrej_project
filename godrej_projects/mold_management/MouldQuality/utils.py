@@ -5,7 +5,7 @@ class DataCollector:
     def __init__(self, mould_id = None): 
         if mould_id is not None: 
             try:
-                self.mould_data = MouldStatus.objects.filter(mould_id)  
+                self.mould_data = MouldStatus.objects.filter(mould_id = mould_id)  
             except: 
                 self.mould_data = None 
             try:      
@@ -28,9 +28,12 @@ class DataCollector:
     
     def get_commulative_count(self):
         count = 0 
+        print("------")
+        print(self.mould_data)
+        print("------")
         if self.mould_data is None: 
             return count 
-        for mould in self.mould_ata: 
+        for mould in self.mould_data: 
             count = count + mould.count_increment 
         return count 
     
