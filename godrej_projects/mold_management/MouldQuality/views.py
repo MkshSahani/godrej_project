@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from mould.models import Mould 
+from mould.models import Mould, MouldDailyCheck
 from .utils import DataCollector 
 from .models import PPMData
 
@@ -67,6 +67,20 @@ def ppmDataView(request):
     return render(request, 'quality/ppmData.html', context)
 
 # -------------------------------------------- 
+def inspectionDataShow(request):
+
+    context = {}
+    mould_check_data = MouldDailyCheck.objects.all()
+    if len(mould_check_data) > 10: 
+        mould_check_data = mould_check_data[:10]
+    
+    context['mould_check_data'] = mould_check_data 
+    return render(request, 'quality/mould_inspection_show.html', context) # render inspect data show page. 
+    
+
+
+# ---------------------------------------------
+
 class MouldCommulativeCount: 
 
     def __init__(self, mould_data, commulative_count, g_clean, p_main):
@@ -75,4 +89,4 @@ class MouldCommulativeCount:
         self.g_clean = g_clean 
         self.p_main = p_main 
 
-        
+    

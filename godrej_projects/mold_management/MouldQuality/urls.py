@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.QualityPageRender,name = "MouldQuality"), 
-    path('ppm', views.ppmDataView, name = "ppmData"), 
+    path('ppm', views.ppmDataView, name = "ppmData"),
+    path('mouldInspect', views.inspectionDataShow, name = "MouldInspect"),  
 ]
