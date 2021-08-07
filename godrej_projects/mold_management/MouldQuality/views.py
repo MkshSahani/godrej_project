@@ -60,7 +60,10 @@ def ppmDataView(request):
         context['NO_DATA'] = True 
     else: 
         context['NO_DATA'] = False 
-     
+
+    for ppm in ppm_data: 
+        print(ppm.ppm_data_added)
+
     return render(request, 'quality/ppmData.html', context)
 
 # -------------------------------------------- 

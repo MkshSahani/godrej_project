@@ -15,7 +15,7 @@ class PPMData(models.Model):
         
         number_of_lot_accepted = self.total_number_of_lot - self.total_number_of_lot_rejected
         return number_of_lot_accepted / (10 ** 6)
-
+    
     
     def __str__(self): 
         return self.new_code + self.vendor_name
