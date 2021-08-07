@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from mould.models import Mould 
 from .utils import DataCollector 
+from .models import PPMData
 
 def QualityPageRender(request): 
     context = {}
@@ -28,6 +29,39 @@ def QualityPageRender(request):
 
     return render(request, 'quality/mould_quality.html', context)
 
+
+
+
+
+# -------------------------------------------- 
+
+def ppmDataView(request): 
+    context = {}
+    
+    
+    if request.method == "POST": 
+
+        new_code = request.POST.get('newCode')
+        vendor_name = request.POST.get('vendorName')
+        total_number_of_lot = request.POST.get('totalLot')
+        rejected_number_of_lot = request.POST.get('rejectedLot')
+
+        ppm_obect = PPMData()
+        ppm_obect.new_code = new_code 
+        ppm_obect.vendor_name = vendor_name 
+        ppm_obect.total_number_of_lot = total_number_of_lot
+        ppm_obect.total_number_of_lot_rejected = rejected_number_of_lot 
+
+        ppm_obect.save()    
+    
+    ppm_data = PPMData.objects.all()
+    context['ppm_data'] = ppm_data 
+    if len(ppm_data) == 0: 
+        context['NO_DATA'] = True 
+    else: 
+        context['NO_DATA'] = False 
+     
+    return render(request, 'quality/ppmData.html', context)
 
 # -------------------------------------------- 
 class MouldCommulativeCount: 
