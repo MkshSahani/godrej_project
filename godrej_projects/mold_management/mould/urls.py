@@ -17,6 +17,8 @@ urlpatterns = [
     path('inspect/mouldunload', views.mould_unload, name = "MouldUnLoad"), 
     path('inspect/mouldInspect', views.mould_daily_inspection, name = "MouldInspect"), 
     path('getBackGclean/<int:mould_id>/', views.mould_back_from_cleaning),
-    path('getBackMain/<int:mould_id>/', views.mould_back_from_maintaince)
+    path('getBackMain/<int:mould_id>/', views.mould_back_from_maintaince), 
+    path('damageAdd/<int:mould_id>/', views.mould_damage, ), 
+    
 ]
 

@@ -8,7 +8,6 @@ admin.site.register(GeneralCleaningPresent)
 admin.site.register(GeneralClearningArchieve)
 admin.site.register(MouldUnload) 
 admin.site.register(MouldDailyCheck)
-admin.site.register(PreventiveMaintainceArchive)
-admin.site.register(MouldDamage)
-admin.site.register(MouldDamageArchive) 
-
+admin.site.register(PreventiveMaintainceArchive) 
+admin.site.register(MouldDamage) # MouldDamage contain database Damage 
+admin.site.register(MouldDamageArchive) # MouldDamageArchive contain Archive Damage. 

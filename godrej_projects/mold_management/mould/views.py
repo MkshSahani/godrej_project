@@ -1,8 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould, MouldDailyCheck, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload, MouldDailyCheck, PreventiveMaintaince 
+from .models import Mould, MouldDailyCheck, MouldDamage, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload, MouldDailyCheck, PreventiveMaintaince 
 from .models import GeneralClearningArchieve, PreventiveMaintainceArchive
+from MouldQuality.models import DamageType
 import matplotlib.pyplot as plt  
 import matplotlib.dates as mdates 
 import os
@@ -445,32 +446,7 @@ def mould_daily_inspection(request):
 # -----------------------------------------------
 # DataCollectorClass 
 
-class DataCollector: 
 
-    def __init__(self, mould_id = None): 
-        if mould_id is None: 
-            try:
-                self.mould_data = MouldStatus.objects.filter(mould_id)  
-            except: 
-                self.mould_data = None 
-            try:      
-                self.mould_cleaning_data = GeneralClearningArchieve.objects.filter(mould_id = mould_id) 
-            except:
-                self.mould_cleaning_data = None 
-        
-        else: 
-            self.mould_data = None 
-            self.mould_cleaning_data = None 
-        # in constructor we have calculated mould data 
-        # now we will manuplate is to do desired calcualtion. 
-    
-    def get_commulative_count(self):
-        count = 0 
-        if self.mould_data is None: 
-            return count 
-        for mould in self.mould_ata: 
-            count = count + mould.count_increment 
-        return count 
     
 @login_required 
 def mould_back_from_cleaning(request, mould_id): 
@@ -502,3 +478,27 @@ def mould_back_from_maintaince(request, mould_id):
     mould_g_clean_data.delete()
     BACK_FROM_PCLEAN = True 
     return redirect(f'/mould/{mould_id}')
+
+
+
+@login_required 
+def mould_damage(request, mould_id): 
+    context = {}
+    context['mould_data'] = Mould.objects.get(mould_id = mould_id) # store Mould Data Here. 
+    list_of_damage = DamageType.objects.all()
+    main_list_of_damage = []
+    for damage in list_of_damage: 
+        main_list_of_damage.append(damage.damage_name)
+
+    context['ADDED_TO_DAMAGE'] = False 
+
+    context['mould_damage']  = main_list_of_damage
+
+    if request.method == "POST": 
+        try: 
+            damage_obj = MouldDamage.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
+            
+        except: 
+            pass 
+    
+    return render(request, 'mould_damage_add.html', context)

@@ -159,7 +159,7 @@ class MouldDailyCheck(models.Model):
 
 class MouldDamage(models.Model): 
 
-    mould_id = models.ForeignKey(Mould, related_name='mould_damag', on_delete=models.CASCADE)
+    mould_id = models.ForeignKey(Mould, related_name='mould_damage', on_delete=models.CASCADE)
     damage_name = models.CharField(max_length=200)
     damage_occurued_on = models.DateTimeField(auto_now_add=True)
 
@@ -172,7 +172,7 @@ class MouldDamage(models.Model):
 
 class MouldDamageArchive(models.Model): # archive dataBase for all Damages. 
 
-    mould_id = models.ForeignKey(Mould, related_name='mould_damag', on_delete=models.CASCADE)
+    mould_id = models.ForeignKey(Mould, related_name='mould_damage_archive', on_delete=models.CASCADE)
     damage_name = models.CharField(max_length=200)
     damage_occurued_on = models.DateTimeField(null=True)
     damage_recovered_on = models.DateTimeField(auto_now_add=True)
