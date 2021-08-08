@@ -20,4 +20,15 @@ class PPMData(models.Model):
     def __str__(self): 
         return self.new_code + self.vendor_name
 
+
+# ---------------------------------------- 
+
+class DamageType(models.Model): 
+
+    mould_name = models.CharField(max_length=200)
+    mould_severity_level = models.IntegerField()
+
+    def __str__(self):
+        return self.mould_name + "_" + str(self.mould_severity_level) 
+    
     
