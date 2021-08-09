@@ -38,11 +38,28 @@
        </div>
     {% endif %}
 
-        {% if BACK_P_CLEAN %}
+    {% if BACK_P_CLEAN %}
          <div class="alert alert-success" role="alert">
           Mould Alert : Mould is Back from Preventive Maintaince. 
        </div>
     {% endif %}
+
+
+
+    {% if BACK_FROM_DAMAGE %}
+         <div class="alert alert-success" role="alert">
+          Mould Alert : Mould Damage has been repaired and Registered. 
+       </div>
+    {% endif %}
+
+
+
+    {% if DAMAGE %}
+         <div class="alert alert-danger" role="alert">
+          Mould Alert : Mould is Damaged with {{ damage.damage_name }} Type of Damage. 
+       </div>
+    {% endif %}
+
 
     <div class="heading_container">
         <div class="row"> 
@@ -320,7 +337,60 @@
     {% endif %}
 
 
-    <div class="container comment_box" style="margin-top : -50px;"> 
+
+       {% if DAMAGE %}
+        <div class="container"> 
+            <table class="table"> 
+                <thread> 
+                    <th class="col"> 
+                        Mould ID 
+                    </th> 
+
+                    <th class="col"> 
+                        Date
+                    </th> 
+
+                    <th class="col"> 
+                        Damage type
+                    </th> 
+
+                    <th class="col"> 
+                        Get Back from Cleaning
+                    </th> 
+                <thead> 
+
+                <tbody class="table-info"> 
+                    <tr class="table-info"> 
+                        <td class="table-info">
+                            {{ damage.mould_id }}
+                        </td>
+
+                        <td class="table-info">
+                            {{ damage.damage_occurued_on }}
+                        </td>
+
+                        <td class="table-info">
+                            {{ damage.damage_name }}
+                        </td>
+
+                        <td class="table-info">
+                            <a href="/mould/damageRepair/{{ damage.mould_id }}">
+                                Damage Has been repaired.
+                            </a> 
+                        </td>
+                        
+
+                    </tr> 
+
+
+                </tbody> 
+            </table> 
+        </div> 
+
+    {% endif %}
+
+
+    <div class="container"> 
     
         <form action="." method = "POST"> 
             {% csrf_token %}

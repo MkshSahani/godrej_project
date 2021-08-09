@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from mould.models import Mould, MouldDailyCheck
+from django.shortcuts import redirect, render
+from mould.models import GeneralCleaningPresent, GeneralClearningArchieve, Mould, MouldDailyCheck, PreventiveMaintainceArchive
+from mould.models import MouldDamageArchive
+
 from .utils import DataCollector 
 from .models import PPMData
 
@@ -89,4 +91,45 @@ class MouldCommulativeCount:
         self.g_clean = g_clean 
         self.p_main = p_main 
 
+
+
+# ------------------------------------------------ 
+def mold_name_select(request): 
+    context = {}
+
+    if request.method == "POST": 
+        mould_id = request.POST.get('mould_id')
+        return redirect(f'/quality/historyCard/{mould_id}') 
+    else: 
+        mould_data_list = Mould.objects.all()
+        mould_id = [mould.mould_id for mould in mould_data_list]
+
+        context['mould_id'] =  mould_id 
+        return render(request, 'quality/mould_select.html', context) 
+
+
+
+# -------------------------------------------------- 
+
+def mold_history_card(request, mould_id): 
+
+    context = {}
+
+    # mould data 
+    context['mould_data'] = Mould.objects.get(mould_id = mould_id)
+    context['GEN_CLEAN_DATA'] = GeneralClearningArchieve.objects.filter(mould_id = Mould.objects.get(mould_id = mould_id))
+    context['P_MAIN_DATA'] = PreventiveMaintainceArchive.objects.filter(mould_id= Mould.objects.get(mould_id = mould_id))
+    context['DAMAGE_DATA'] = MouldDamageArchive.objects.filter(mould_id = Mould.objects.get(mould_id = mould_id))
     
+    if len(context['GEN_CLEAN_DATA']) != 0: 
+        context['G_CLEAN'] = True 
+    
+    if len(context['P_MAIN_DATA']) != 0: 
+        context['P_MAIN'] = True 
+    
+    if len(context['DAMAGE_DATA']) != 0: 
+        context['DAMAGE'] = True 
+
+    print(context['GEN_CLEAN_DATA'])
+
+    return render(request, 'quality/mould_history_card.html', context) # return history card. 

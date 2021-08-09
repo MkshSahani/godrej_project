@@ -16,6 +16,7 @@ MOULD_DELECTED = False
 MOULD_ID_DELETED = None 
 BACK_FROM_GCLEAN = False 
 BACK_FROM_PCLEAN = False 
+BACK_FROM_DAMAGE = False 
 
 
 class MouldData: 
@@ -98,7 +99,7 @@ def mould_view(request, mould_id):
         comment.save()
         return redirect(f'/mould/{comment_on_mould_id}')
 
-    global BACK_FROM_GCLEAN, BACK_FROM_PCLEAN
+    global BACK_FROM_GCLEAN, BACK_FROM_PCLEAN, BACK_FROM_DAMAGE 
     if BACK_FROM_GCLEAN: 
         context['BACK_G_CLEAN'] = True 
         BACK_FROM_GCLEAN = False 
@@ -109,7 +110,21 @@ def mould_view(request, mould_id):
         context['BACK_P_CLEAN'] = True 
         BACK_FROM_PCLEAN = False 
     else: 
-         context['BACK_P_CLEAN'] = False
+        context['BACK_P_CLEAN'] = False
+
+    if BACK_FROM_DAMAGE: 
+        context['BACK_FROM_DAMAGE'] = True 
+        BACK_FROM_DAMAGE = False
+    else:
+        context['BACK_FROM_DAMAGE'] = False
+
+    try: 
+        damage = MouldDamage.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
+        context['DAMAGE'] = True 
+        context['damage'] = damage
+    except: 
+        context['DAMAGE'] = False   
+        
 
     comments = MouldComment.objects.filter(mould_id = mould_id).order_by('commented_date_time')
     comments = list(comments)[::-1]
@@ -136,6 +151,8 @@ def mould_view(request, mould_id):
         context['IN_MAIN'] = True 
     except: 
         context['IN_MAIN'] = False 
+
+
 
     drawGraphMould_vs_shots(mould_data)
     return render(request, 'mould_id.html', context)
@@ -515,17 +532,16 @@ def mould_damage(request, mould_id):
 
 @login_required 
 def get_back_from_damage(request, mould_id):
-
-    try: 
-        damage_obj = MouldDamage.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
-        damage_obj_archive = MouldDamageArchive()
-        damage_obj_archive.mould_id = Mould.objects.get(mould_id = mould_id)
-        damage_obj_archive.damage_name = damage_obj.damage_name 
-        damage_obj_archive = damage_obj.damage_occurued_on
-        damage_obj_archive.save()
-        damage_obj_archive.delete()
-    except: 
-        pass  
+    global BACK_FROM_DAMAGE 
+     
+    damage_obj = MouldDamage.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
+    damage_obj_archive = MouldDamageArchive()
+    damage_obj_archive.mould_id = Mould.objects.get(mould_id = mould_id)
+    damage_obj_archive.damage_name = damage_obj.damage_name 
+    damage_obj_archive.damage_occurued_on = damage_obj.damage_occurued_on
+    damage_obj_archive.save()
+    damage_obj.delete()
+    BACK_FROM_DAMAGE = True 
 
     
     return redirect(f'/mould/{mould_id}') # redirect to Mould Home Page. 

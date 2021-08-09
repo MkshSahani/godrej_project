@@ -5,4 +5,7 @@ urlpatterns = [
     path('', views.QualityPageRender,name = "MouldQuality"), 
     path('ppm', views.ppmDataView, name = "ppmData"),
     path('mouldInspect', views.inspectionDataShow, name = "MouldInspect"),  
+    path('mouldSelect/', views.mold_name_select, name = "MouldNameSelect"), 
+    path('historyCard/<int:mould_id>', views.mold_history_card), 
+
 ]

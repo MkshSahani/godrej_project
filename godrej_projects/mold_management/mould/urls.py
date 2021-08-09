@@ -19,6 +19,7 @@ urlpatterns = [
     path('getBackGclean/<int:mould_id>/', views.mould_back_from_cleaning),
     path('getBackMain/<int:mould_id>/', views.mould_back_from_maintaince), 
     path('damageAdd/<int:mould_id>/', views.mould_damage, ), 
+    path('damageRepair/<int:mould_id>/', views.get_back_from_damage), 
     
 ]
 
