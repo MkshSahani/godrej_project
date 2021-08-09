@@ -72,7 +72,7 @@ def ppmDataView(request):
 def inspectionDataShow(request):
 
     context = {}
-    mould_check_data = MouldDailyCheck.objects.all()
+    mould_check_data = MouldDailyCheck.objects.all()[::-1]
     if len(mould_check_data) > 10: 
         mould_check_data = mould_check_data[:10]
     

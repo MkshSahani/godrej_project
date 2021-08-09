@@ -128,96 +128,140 @@
                             <th scope="col">Registered by </th> 
                        {% endcomment %}
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Mould ID 
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.mould_id }}
                         </td> 
                     </tr> 
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Mould Name 
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.mould_name }}
                         </td> 
                     </tr> 
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Order Number 
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.order_number }}
                         </td> 
                     </tr> 
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Preventive Cleaning
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.preventive_maintaince_clearning_thresold_value }}
                         </td> 
                     </tr> 
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                            Tool Life Count   
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.tool_life }}
                         </td> 
                     </tr> 
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Registered by 
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.registered_by.first_name }}
                         </td> 
                     </tr> 
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Current Count 
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.present_count }}
                         </td> 
                     </tr>
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Target 
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.number_of_shots_per_day }} shots per day
                         </td> 
                     </tr>
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             General Clearning count  
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.general_maintaince_cleaning_threshold_value }}
                         </td> 
                     </tr>
 
 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                    <tr class="bg-info"> 
+                        <td>
                             Mould Description   
                         </td> 
-                        <td class="table-info"> 
+                        <td> 
                             {{ data.moud_desc }}
                         </td> 
                     </tr>
+
+
+                    
+                    <tr class="bg-info"> 
+                        <td>
+                            Part Weight
+                        </td> 
+                        <td> 
+                            {{ data.part_weight }}
+                        </td> 
+                    </tr>
+
+                    <tr class="bg-info"> 
+                        <td>
+                            Runner Weight
+                        </td> 
+                        <td> 
+                            {{ data.runner_weight }}
+                        </td> 
+                    </tr>
+
+
+
+                    <tr class="bg-info"> 
+                        <td>
+                            Tonnage
+                        </td> 
+                        <td> 
+                            {{ data.tonnage }}
+                        </td> 
+                    </tr>
+
+                    <tr class="bg-info"> 
+                        <td>
+                            cycle time
+                        </td> 
+                        <td> 
+                            {{ data.cycle_time }}
+                        </td> 
+                    </tr>
+
+
+
+
 
                 </table> 
 
@@ -253,21 +297,21 @@
                     </th> 
                 <thead> 
 
-                <tbody class="table-info"> 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                <tbody> 
+                    <tr class="bg-info"> 
+                        <td>
                             {{ mould_g_clean_data.mould_id.mould_id }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             {{ mould_g_clean_data.date_applied_for_cleaning.date }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             {{ mould_g_clean_data.mould_id.order_number }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             <a href="/mould/getBackGclean/{{ mould_g_clean_data.mould_id }}">
                                 General Cleaning completed.
                             </a> 
@@ -306,21 +350,21 @@
                     </th> 
                 <thead> 
 
-                <tbody class="table-info"> 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                <tbody> 
+                    <tr class="bg-info"> 
+                        <td>
                             {{ mould_p_main.mould_id.mould_id }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             {{ mould_p_main.date_applied_for_maitaince }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             {{ mould_p_main.mould_id.order_number }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             <a href="/mould/getBackMain/{{ mould_p_main.mould_id }}">
                                 preventive maintaince complete
                             </a> 
@@ -359,21 +403,21 @@
                     </th> 
                 <thead> 
 
-                <tbody class="table-info"> 
-                    <tr class="table-info"> 
-                        <td class="table-info">
+                <tbody> 
+                    <tr class="bg-info"> 
+                        <td>
                             {{ damage.mould_id }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             {{ damage.damage_occurued_on }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             {{ damage.damage_name }}
                         </td>
 
-                        <td class="table-info">
+                        <td>
                             <a href="/mould/damageRepair/{{ damage.mould_id }}">
                                 Damage Has been repaired.
                             </a> 

@@ -24,6 +24,11 @@ class Mould(models.Model):
     cycle_time = models.FloatField()
     number_of_shots_per_day = models.IntegerField()
 
+    preventice_maintaince_count = models.IntegerField(default=0)
+    general_cleaning_maintance_count = models.IntegerField(default = 0)
+
+
+
 
     # * tool live over shots. 
 
@@ -42,18 +47,11 @@ class Mould(models.Model):
         return str(self.mould_id)
 
     def general_alert(self):  # alert general cleaning. 
-        mould_status_data = MouldStatus.objects.filter(mould_id = self.mould_id)
-        count = 0 
-        for mould in mould_status_data: 
-            count = count + mould.count_increment 
-        return self.general_maintaince_cleaning_threshold_value -count <= 500
+        return self.general_maintaince_cleaning_threshold_value - self.general_cleaning_maintance_count  <= 200 
 
     def preventive_maintance_alert(self): # preventive maintance alert function. 
-        mould_status_data = MouldStatus.objects.filter(mould_id = self.mould_id)
-        count = 0 
-        for mould in mould_status_data: 
-            count = count + mould.count_increment 
-        return self.preventive_maintaince_clearning_thresold_value - count <= 500 
+        return self.preventive_maintaince_clearning_thresold_value - self.preventice_maintaince_count <= 200 
+       
     
     def tool_life_over_alert(self): # tool live over alert. 
         mould_status_data = MouldStatus.objects.filter(mould_id = self.mould_id)
@@ -140,7 +138,7 @@ class MouldUnload(models.Model):
 
 class MouldDailyCheck(models.Model): 
 
-    mould_id = models.ForeignKey(Mould, related_name='Machine_Mould', on_delete=models.PROTECT)
+    mould_id = models.ForeignKey(Mould, related_name='Machine_Mould', on_delete=models.CASCADE)
     machine_id = models.CharField(max_length=100)
     date_time_of_update = models.DateTimeField(auto_now_add=True) # user time when data uploaded. 
     clause_1 = models.BooleanField()

@@ -97,29 +97,29 @@
                     <tbody> 
                         {% for mould in mould_data %}
                             {% if mould.general_alert %}
-                                <tr class="table-danger"> 
-                                    <td class="table-danger"> 
+                                <tr  class="bg-danger"> 
+                                    <td> 
                                         <a href="mould/{{ mould.mould_id }}"> 
                                             {{ mould.mould_id }}
                                         </a> 
                                     </td> 
 
 
-                                    <td class="table-danger"> 
+                                    <td > 
                                         {{ mould.mould_name }}
                                     </td> 
 
                                   
 
-                                    <td class="table-danger"> 
+                                    <td > 
                                         {{ mould.cavity_number }}
                                     </td> 
 
-                                    <td class="table-danger"> 
+                                    <td > 
                                         {{ mould.present_count }}
                                     </td> 
 
-                                    <td class="table-danger"> 
+                                    <td > 
                                         {% if mould.tool_life_over_alert %}
                                             Tool Life Over Alert
                                         {% elif mould.preventive_maintance_alert %}
@@ -131,25 +131,25 @@
                                 </tr> 
                             {% else %}
 
-                                <tr class="table-info"> 
-                                    <td class="table-info"> 
+                                <tr class="bg-info"> 
+                                    <td> 
                                         <a href="mould/{{ mould.mould_id }}"> 
                                             {{ mould.mould_id }}
                                         </a> 
                                     </td> 
-                                    <td class="table-info"> 
+                                    <td> 
                                         {{ mould.mould_name }}
                                     </td> 
 
-                                    <td class="table-info"> 
+                                    <td> 
                                         {{ mould.cavity_number }}
                                     </td> 
 
-                                    <td class="table-info"> 
+                                    <td> 
                                         {{ mould.present_count }}
                                     </td> 
 
-                                    <td class="table-info"> 
+                                    <td> 
                                         -
                                     </td> 
                                 </tr> 

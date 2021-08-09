@@ -4,6 +4,7 @@ button.signupButton {
 
 button.signupButton:hover {
     background-color: black; 
+    color : white;
     border : 2px solid rgb(29, 28, 22);
 }
 
@@ -44,6 +45,7 @@ div.bodyContent button.submitButton {
 
 div.bodyContent button.submitButton:hover {
     background-color: black;
+    color : white;
 }
 
 div.bodyContent div.formBody form input.form-control:focus {

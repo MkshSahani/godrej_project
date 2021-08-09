@@ -171,6 +171,8 @@ def mould_update(request):
 
         target_mould = Mould.objects.get(mould_id = mould_id)
         target_mould.present_count = target_mould.present_count + int(increment) 
+        target_mould.general_cleaning_maintance_count = target_mould.general_cleaning_maintance_count + int(increment)
+        target_mould.preventice_maintaince_count = target_mould.preventice_maintaince_count + int(increment)
         target_mould.save()
 
 
@@ -478,6 +480,11 @@ def mould_back_from_cleaning(request, mould_id):
     mould_g_clean_archive_data.comment = mould_g_clean_data.comment 
     mould_g_clean_archive_data.save()
     mould_g_clean_data.delete()
+
+    mould_data = Mould.objects.get(mould_id = mould_id)
+    mould_data.general_cleaning_maintance_count = 0 
+    mould_data.save()
+
     BACK_FROM_GCLEAN = True 
     return redirect(f'/mould/{mould_id}')
     
@@ -492,7 +499,12 @@ def mould_back_from_maintaince(request, mould_id):
     mould_g_clean_archive_data.date_applied_for_maitaince= mould_g_clean_data.date_applied_for_maitaince 
     mould_g_clean_archive_data.comment = mould_g_clean_data.comment 
     mould_g_clean_archive_data.save()
+    
+    mould_data = Mould.objects.get(mould_id = mould_id)
+    mould_data.preventice_maintaince_count = 0
+    mould_data.save()
     mould_g_clean_data.delete()
+
     BACK_FROM_PCLEAN = True 
     return redirect(f'/mould/{mould_id}')
 
