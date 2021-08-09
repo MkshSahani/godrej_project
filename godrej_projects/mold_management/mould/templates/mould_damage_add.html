@@ -31,6 +31,20 @@
         </div>
     </nav>
     
+    {% comment %} commange comments {% endcomment %}
+
+    {% if ADDED_TO_DAMAGE %}
+          <div class="alert alert-success" role="alert">
+          {{ mould_data.mould_name }} Registered for Damage. 
+       </div>
+   
+    {% endif %}
+
+    {%  if ALREADY_DAMAGE %}
+        <div class="alert alert-danger" role="alert"> 
+            {{ mould_data.mould_name }} Already in Registered for Some Other Damage.
+        </div> 
+    {% endif %}
 
     <div class="container"> 
 
@@ -93,7 +107,7 @@
                 <select 
                     class="form-select" 
                     id="inputGroupSelect01"
-                    name="mould_id">
+                    name="damage_type">
 
                     <option selected value="-1">Select</option>
                     {% for damage in mould_damage %}

@@ -162,6 +162,7 @@ class MouldDamage(models.Model):
     mould_id = models.ForeignKey(Mould, related_name='mould_damage', on_delete=models.CASCADE)
     damage_name = models.CharField(max_length=200)
     damage_occurued_on = models.DateTimeField(auto_now_add=True)
+    damage_comment = models.CharField(max_length=200)
 
     def __str__(self): 
         return str(self.mould_id.mould_id) + "_" + self.damage_name 

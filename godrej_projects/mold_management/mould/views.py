@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required 
-from .models import Mould, MouldDailyCheck, MouldDamage, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload, MouldDailyCheck, PreventiveMaintaince 
+from .models import Mould, MouldDailyCheck, MouldDamage, MouldDamageArchive, MouldStatus, MouldComment, GeneralCleaningPresent, GeneralClearningArchieve, MouldUnload, MouldDailyCheck, PreventiveMaintaince 
 from .models import GeneralClearningArchieve, PreventiveMaintainceArchive
 from MouldQuality.models import DamageType
 import matplotlib.pyplot as plt  
@@ -497,8 +497,36 @@ def mould_damage(request, mould_id):
     if request.method == "POST": 
         try: 
             damage_obj = MouldDamage.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
-            
+            context['ALREADY_DAMAGE'] = True 
         except: 
-            pass 
-    
+            damage_type = request.POST.get('damage_type')
+            damage_comment = request.POST.get('comment')
+            damage_obj_create = MouldDamage()
+            damage_obj_create.mould_id = Mould.objects.get(mould_id = mould_id)
+            damage_obj_create.damage_name = damage_type
+            # damage_obj_create.damage_comment = damage_comment  
+            damage_obj_create.save()
+            context['ADDED_TO_DAMAGE'] = True 
+
     return render(request, 'mould_damage_add.html', context)
+
+#----------------------------------------------------------------- 
+
+
+@login_required 
+def get_back_from_damage(request, mould_id):
+
+    try: 
+        damage_obj = MouldDamage.objects.get(mould_id = Mould.objects.get(mould_id = mould_id))
+        damage_obj_archive = MouldDamageArchive()
+        damage_obj_archive.mould_id = Mould.objects.get(mould_id = mould_id)
+        damage_obj_archive.damage_name = damage_obj.damage_name 
+        damage_obj_archive = damage_obj.damage_occurued_on
+        damage_obj_archive.save()
+        damage_obj_archive.delete()
+    except: 
+        pass  
+
+    
+    return redirect(f'/mould/{mould_id}') # redirect to Mould Home Page. 
+
