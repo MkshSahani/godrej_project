@@ -44,7 +44,7 @@
             </div> 
 
             <div class="col"> 
-                <button class="btn bg-dark text-white" style="padding-left: 20px;padding-right : 20px;margin-top : 5px;margin-left : 500px;">Add</button> 
+                <a href="{% url 'NewIteam' %}"> <button class="btn bg-dark text-white" style="padding-left: 20px;padding-right : 20px;margin-top : 5px;margin-left : 500px;">Add</button></a>  
             </div> 
         </div>  
         <hr /> 
@@ -72,6 +72,10 @@
                 </th> 
 
                 <th class="col"> 
+                    Iteam Name 
+                </th> 
+
+                <th class="col"> 
                     Rejection Reason 
                 </th> 
 
@@ -96,6 +100,56 @@
                 </th> 
 
             </thead> 
+
+
+            <tbody> 
+
+                {% for data in capa_data %}
+
+                <tr class="bg-info"> 
+                
+                <td> 
+                    {{ data.serial_number }}
+                </td> 
+
+                <td> 
+                    {{ data.item_code }}
+                </td> 
+
+                <td> 
+                    {{ data.item_name }}
+                </td> 
+
+                <td> 
+                    {{ data.rejection_reason }} 
+                </td> 
+
+                <td> 
+                    {{ data.capa_comment }}
+                </td> 
+
+                <td> 
+                    {{ data.capa_submitted }} 
+                </td> 
+
+                <td> 
+                    {{ data.capa_recv }} 
+                </td> 
+
+                <td> 
+                    {{ data.remark }} 
+                </td> 
+
+                <td> 
+                    update link
+                </td> 
+
+                    </tr> 
+                {% endfor %}
+
+
+
+            </tbody> 
 
 
         </table> 

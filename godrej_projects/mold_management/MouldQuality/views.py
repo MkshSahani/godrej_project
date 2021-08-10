@@ -181,4 +181,30 @@ def capa_data_show(request):
 
 
 
+
 # ----------------------------------------------------- 
+def add_new_capa_item(request): 
+
+    context = {}
+
+    if request.method == "POST": 
+
+        iteam_code = request.POST.get('icode')
+        iteam_name = request.POST.get('iname')
+        rejection_reason = request.POST.get('reason')
+
+        register_iteam = capa_data()
+        register_iteam.item_code = iteam_code 
+        register_iteam.item_name = iteam_name
+        register_iteam.rejection_reason = rejection_reason 
+        
+        register_iteam.capa_comment = "-"
+        register_iteam.capa_submitted ="-"
+        register_iteam.capa_recv = "-"
+        register_iteam.remark = "-"
+        
+        
+        register_iteam.save()
+        context['REG'] = True 
+
+    return render(request, 'quality/new_capa_item.html', context)

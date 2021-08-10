@@ -9,4 +9,5 @@ urlpatterns = [
     path('historyCard/<int:mould_id>', views.mold_history_card), 
     path('auditTrack/', views.audit_track, name = "Audit"), 
     path('capaData/', views.capa_data_show, name = "CapaData"), 
+    path('newIteam/',views.add_new_capa_item, name = "NewIteam"), 
 ]
