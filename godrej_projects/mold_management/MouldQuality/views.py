@@ -1,10 +1,14 @@
+from django.db.models.query import RawQuerySet
 from django.shortcuts import redirect, render
 from mould.models import GeneralCleaningPresent, GeneralClearningArchieve, Mould, MouldDailyCheck, PreventiveMaintainceArchive
 from mould.models import MouldDamageArchive
+from django.contrib.auth.decorators import login_required 
 
 from .utils import DataCollector 
-from .models import PPMData
+from .models import PPMData, AuditTrack, capa_data
 
+
+@login_required 
 def QualityPageRender(request): 
     context = {}
 
@@ -36,7 +40,7 @@ def QualityPageRender(request):
 
 
 # -------------------------------------------- 
-
+@login_required 
 def ppmDataView(request): 
     context = {}
     
@@ -69,6 +73,7 @@ def ppmDataView(request):
     return render(request, 'quality/ppmData.html', context)
 
 # -------------------------------------------- 
+@login_required
 def inspectionDataShow(request):
 
     context = {}
@@ -94,6 +99,7 @@ class MouldCommulativeCount:
 
 
 # ------------------------------------------------ 
+@login_required 
 def mold_name_select(request): 
     context = {}
 
@@ -110,7 +116,7 @@ def mold_name_select(request):
 
 
 # -------------------------------------------------- 
-
+@login_required 
 def mold_history_card(request, mould_id): 
 
     context = {}
@@ -133,3 +139,46 @@ def mold_history_card(request, mould_id):
     print(context['GEN_CLEAN_DATA'])
 
     return render(request, 'quality/mould_history_card.html', context) # return history card. 
+
+
+@login_required 
+def audit_track(request): 
+
+    context = {}
+
+    if request.method == "POST": 
+        audit_track = AuditTrack()
+        audit_track.supplier = request.POST.get('supplier')
+        audit_track.audit_type = request.POST.get('type')
+        audit_track.tools = request.POST.get('tools')
+        audit_track.no_of_machine = request.POST.get('numberOfMachine')
+        audit_track.godrej_auitor = request.POST.get('gAuditor')
+        audit_track.supplier_audito = request.POST.get('sAuditor')
+        audit_track.score = request.POST.get('score')
+
+        audit_track.save()
+
+    audit_data_list = AuditTrack.objects.all()[::-1] # list of all audit. 
+    context['AUDIT_DATA'] = audit_data_list 
+    if len(audit_data_list) == 0: 
+        context['NO_DATA'] = True
+    
+   
+    return render(request, 'quality/audit_track.html', context)
+
+
+# ---------------------------------------------------- 
+@login_required 
+def capa_data_show(request): 
+
+    context = {}
+    context['capa_data'] = capa_data.objects.all()[::-1]
+    if len(context['capa_data']) == 0: 
+        context['NO_DATA'] = True 
+
+    return render(request, 'quality/capa_data.html', context)
+
+
+
+
+# ----------------------------------------------------- 

@@ -44,7 +44,7 @@
             </div> 
 
             <div class="col"> 
-                <a href="{% url 'MouldUpdate' %}"> 
+                <a href="{% url 'Audit' %}"> 
                 Audit Track
                 </a> 
             </div> 
@@ -58,6 +58,12 @@
              <div class="col"> 
                 <a href="{% url 'MouldInspectView' %}"> 
                     Inspection Data
+                </a> 
+            </div> 
+
+            <div class="col"> 
+                <a href="{% url 'CapaData' %}"> 
+                    CAPA Data
                 </a> 
             </div> 
 
@@ -139,9 +145,7 @@
                 {% endfor %}
 
             </tbody> 
-
         </table> 
-
     </div> 
 
  
