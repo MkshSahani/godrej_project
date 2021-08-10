@@ -179,6 +179,33 @@ def capa_data_show(request):
     return render(request, 'quality/capa_data.html', context)
 
 
+# ------------------------------------------------------
+@login_required 
+def capa_update(request, serial_number):
+    context = {}
+    
+    
+    if request.method == "POST": 
+
+        capa_data_update_obj = capa_data.objects.get(serial_number = serial_number)
+        capa_data_update_obj.capa_comment = request.POST.get('capaComment')
+        capa_data_update_obj.capa_submitted = request.POST.get('cappaSubmitted')
+        capa_data_update_obj.capa_recv = request.POST.get('capparecv')
+        capa_data_update_obj.remark = request.POST.get('remark')
+        capa_data_update_obj.save()
+        context['UPDTED'] = True 
+        
+    
+    
+    
+    capa_data_obj = capa_data.objects.get(serial_number = serial_number)
+    context['capa_data_obj'] = capa_data_obj
+
+
+
+
+    return render(request, 'quality/capa_update.html', context)
+    
 
 
 
